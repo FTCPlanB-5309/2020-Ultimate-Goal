@@ -48,10 +48,19 @@ public class RobotHardware
     public DcMotor  rightFrontDrive = null;
     public DcMotor  leftRearDrive  = null;
     public DcMotor  rightRearDrive = null;
+
     public DcMotor  wobbleMotor = null;
 
+    public DcMotor leftLauncherMotor = null;
+    public DcMotor rightLauncherMotor = null;
+
     public Servo wobbleServo = null;
+
+    public Servo launchServo = null;
+
     public Servo scoopServo = null;
+
+    public Servo liftServo = null;
 
     BNO055IMU imu;
 
@@ -79,6 +88,13 @@ public class RobotHardware
     public final double SCOOPING_POSITION = 1.00;
     public final double DROPPING_POSITION = 0.17;
 
+    // These need proper values - urgent
+    public final double LAUNCHER_FIRE_POSITION = 0.5;
+    public final double LAUNCHER_RESET_POSITION = 0.5;
+    public final double LAUNCHER_HIGH_POSITION = 0.5;
+    public final double LAUNCHER_POWER_POSITION = 0.5;
+
+
     public RobotHardware(){
 
     }
@@ -86,14 +102,23 @@ public class RobotHardware
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
+
         wobbleServo = hwMap.get(Servo.class, "wobbleServo");
         wobbleMotor = hwMap.get(DcMotor.class, "wobbleMotor");
+
+        launchServo = hwMap.get(Servo.class, "launchServo");
+
         scoopServo = hwMap.get(Servo.class, "scoopServo");
-        // Define and Initialize Motors
-//        leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
-//        rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
-//        leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
-//        rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
+        liftServo = hwMap.get(Servo.class, "liftServo");
+
+//         Define and Initialize Motors
+        leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
+        rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
+        leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
+        rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
+
+        leftLauncherMotor  = hwMap.get(DcMotor.class, "leftLauncherMotor");
+        rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -114,8 +139,8 @@ public class RobotHardware
 //        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
 
 
-//        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-//        rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Set all motors to zero power
@@ -138,17 +163,25 @@ public class RobotHardware
         hwMap = ahwMap;
         wobbleServo = hwMap.get(Servo.class, "wobbleServo");
         wobbleMotor = hwMap.get(DcMotor.class, "wobbleMotor");
+
         scoopServo = hwMap.get(Servo.class, "scoopServo");
 
+        launchServo = hwMap.get(Servo.class, "launchServo");
 
-        // Define and Initialize Motors
-//        leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
-//        rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
-//        leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
-//        rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
-//
-//        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-//        rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        liftServo = hwMap.get(Servo.class, "liftServo");
+
+
+//         Define and Initialize Motors
+        leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
+        rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
+        leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
+        rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
+
+        leftLauncherMotor  = hwMap.get(DcMotor.class, "leftLauncherMotor");
+        rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
+
+        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Set all motors to zero power
