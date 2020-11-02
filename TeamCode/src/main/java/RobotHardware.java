@@ -180,7 +180,7 @@ public class RobotHardware
         leftLauncherMotor  = hwMap.get(DcMotor.class, "leftLauncherMotor");
         rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
 
-        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
