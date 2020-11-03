@@ -48,29 +48,17 @@ public class TeleOp extends LinearOpMode {
             }
             else robot.wobbleMotor.setPower(0);
 
-            if(scoop) {
-                if (robot.scoopServo.getPosition() == robot.DROPPING_POSITION) {
-                    robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
-                    scoop = false;
-                }
-            }
 
-            if(gamepad2.right_bumper) {
-                scoop = true;
+
+            if(gamepad2.right_bumper)
                 robot.scoopServo.setPosition(robot.DROPPING_POSITION);
-            }
+            else
+                robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
 
-            if(fire){
-                if(robot.launchServo.getPosition() == robot.LAUNCHER_FIRE_POSITION){
-                    robot.launchServo.setPosition(robot.LAUNCHER_RESET_POSITION);
-                    fire = false;
-                }
-            }
-
-            if (gamepad2.right_trigger > 0.8) {
-                fire = true;
+            if (gamepad2.right_trigger > 0.8)
                 robot.launchServo.setPosition(robot.LAUNCHER_FIRE_POSITION);
-            }
+            else
+                robot.launchServo.setPosition(robot.LAUNCHER_RESET_POSITION);
 
             if(gamepad2.a){
                 robot.leftLauncherMotor.setPower(-1);
