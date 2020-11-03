@@ -184,19 +184,19 @@ public class RobotHardware
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-        // Set all motors to zero power
-//        leftFrontDrive.setPower(0);
-//        rightFrontDrive.setPower(0);
-//        leftRearDrive.setPower(0);
-//        rightRearDrive.setPower(0);
+//         Set all motors to zero power
+        leftFrontDrive.setPower(0);
+        rightFrontDrive.setPower(0);
+        leftRearDrive.setPower(0);
+        rightRearDrive.setPower(0);
 
 
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
-//        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//         Set all motors to run without encoders.
+//         May want to use RUN_USING_ENCODERS if encoders are installed.
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
