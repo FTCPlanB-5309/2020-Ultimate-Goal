@@ -64,10 +64,10 @@ public class RobotHardware
 
     BNO055IMU imu;
 
-    DistanceSensor leftDistanceSensor;
-    DistanceSensor rightDistanceSensor;
-    DistanceSensor rearDistanceSensor;
-    DistanceSensor frontDistanceSensor;
+    public DistanceSensor leftDistanceSensor;
+    public DistanceSensor rightDistanceSensor;
+    public DistanceSensor rearDistanceSensor;
+    public DistanceSensor frontDistanceSensor;
 
     HardwareMap hwMap           =  null;
 
@@ -86,13 +86,13 @@ public class RobotHardware
     public final double WOBBLE_SERVO_OPEN = 0.24;
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
-    public final double DROPPING_POSITION = 0.17;
+    public final double DROPPING_POSITION = 0.1;
 
     // These need proper values - urgent
     public final double LAUNCHER_FIRE_POSITION = 0.5;
-    public final double LAUNCHER_RESET_POSITION = 0.5;
-    public final double LAUNCHER_HIGH_POSITION = 0.5;
-    public final double LAUNCHER_POWER_POSITION = 0.5;
+    public final double LAUNCHER_RESET_POSITION = 1;
+    public final double LAUNCHER_HIGH_POSITION = 0.82;
+    public final double LAUNCHER_POWER_POSITION = 0.7;
 
 
     public RobotHardware(){
@@ -133,10 +133,12 @@ public class RobotHardware
         imu.initialize(parameters);
 
 
-//        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
-//        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
-//        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
-//        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
+
+
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
+        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
+        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
+        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
 
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -181,7 +183,7 @@ public class RobotHardware
         rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 //         Set all motors to zero power
