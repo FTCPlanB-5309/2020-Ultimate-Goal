@@ -87,12 +87,13 @@ public class RobotHardware
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
     public final double DROPPING_POSITION = 0.1;
+    public final double DRIVING_POSITION = 0.3;
 
     // These need proper values - urgent
-    public final double LAUNCHER_FIRE_POSITION = 0.5;
+    public final double LAUNCHER_FIRE_POSITION = 0.55;
     public final double LAUNCHER_RESET_POSITION = 1;
-    public final double LAUNCHER_HIGH_POSITION = 0.82;
-    public final double LAUNCHER_POWER_POSITION = 0.7;
+    public final double LAUNCHER_HIGH_POSITION = 0.72;
+    public final double LAUNCHER_POWER_POSITION = 0.65;
 
 
     public RobotHardware(){
