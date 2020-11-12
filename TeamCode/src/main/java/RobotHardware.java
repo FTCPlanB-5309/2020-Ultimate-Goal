@@ -89,12 +89,15 @@ public class RobotHardware
     public final double DROPPING_POSITION = 0.1;
     public final double DRIVING_POSITION = 0.3;
 
-    // These need proper values - urgent
-    public final double LAUNCHER_FIRE_POSITION = 0.55;
+    public final double LAUNCHER_FIRE_POSITION = 0;
     public final double LAUNCHER_RESET_POSITION = 1;
     public final double LAUNCHER_HIGH_POSITION = 0.72;
     public final double LAUNCHER_POWER_POSITION = 0.65;
 
+    //Set real values for these
+    public final int WOBBLE_ARM_START = 0;
+    public final int WOBBLE_ARM_DOWN = 1200;
+    public final int WOBBLE_ARM_UP = 600;
 
     public RobotHardware(){
 
@@ -144,7 +147,9 @@ public class RobotHardware
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        wobbleServo.setPosition(WOBBLE_SERVO_CLOSED);
 
         // Set all motors to zero power
 //        leftFrontDrive.setPower(0);
@@ -185,6 +190,7 @@ public class RobotHardware
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 //         Set all motors to zero power
@@ -203,22 +209,22 @@ public class RobotHardware
 
     }
 
-//    public void resetEncoder () {
-//        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//
-//    }
-//
-//    public void setupDriveTrain () {
-//        resetEncoder();
-//
-//        leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//    }
+    public void resetEncoder () {
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    }
+
+    public void setupDriveTrain () {
+        resetEncoder();
+
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
 //
 //
 //    public void runUsingEncoder () {
@@ -230,16 +236,16 @@ public class RobotHardware
 //        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //    }
 //
-//    public void stop () {
-//        leftFrontDrive.setPower(0);
-//        rightFrontDrive.setPower(0);
-//        leftRearDrive.setPower(0);
-//        rightRearDrive.setPower(0);
-//    }
+    public void stop () {
+        leftFrontDrive.setPower(0);
+        rightFrontDrive.setPower(0);
+        leftRearDrive.setPower(0);
+        rightRearDrive.setPower(0);
+    }
 
-//    public double getHeading() {
-//        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-//        return angles.firstAngle;
-//    }
+    public double getHeading() {
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        return angles.firstAngle;
+    }
 
 }
