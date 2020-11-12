@@ -147,7 +147,7 @@ public class RobotHardware
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         wobbleServo.setPosition(WOBBLE_SERVO_CLOSED);
 
@@ -190,7 +190,7 @@ public class RobotHardware
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 //         Set all motors to zero power
