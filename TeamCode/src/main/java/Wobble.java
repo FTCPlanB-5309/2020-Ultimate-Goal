@@ -17,27 +17,28 @@ public class Wobble {
     }
 
     public void moveArm (int clicks) {
-        int target = robot.wobbleMotor.getTargetPosition() + clicks;
-        if (target > robot.wobbleMotor.getCurrentPosition())
+        if (clicks > robot.wobbleMotor.getCurrentPosition())
             robot.wobbleMotor.setPower(1);
         else
             robot.wobbleMotor.setPower(-1);
-        robot.wobbleMotor.setTargetPosition(target);
+        robot.wobbleMotor.setTargetPosition(clicks);
         robot.wobbleMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while (Math.abs(robot.wobbleMotor.getCurrentPosition() - target) > 2) {
+        while (Math.abs(robot.wobbleMotor.getCurrentPosition() - clicks) > 2) {
             telemetry.addData("Arm Clicks", robot.wobbleMotor.getCurrentPosition());
-            telemetry.addData("Target Position", target);
+            telemetry.addData("Target Position", clicks);
             telemetry.update();
             Thread.yield();
         }
         robot.wobbleMotor.setPower(0);
     }
 
-    public void grab() {
+    public void grab() throws InterruptedException {
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
+        Thread.sleep(1000);
     }
 
-    public void release() {
+    public void release() throws  InterruptedException {
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
+        Thread.sleep(1000);
     }
 }

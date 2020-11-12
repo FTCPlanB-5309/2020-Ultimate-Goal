@@ -147,7 +147,7 @@ public class RobotHardware
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         wobbleServo.setPosition(WOBBLE_SERVO_CLOSED);
 
@@ -190,7 +190,7 @@ public class RobotHardware
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 //         Set all motors to zero power
@@ -225,17 +225,17 @@ public class RobotHardware
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
-//
-//
-//    public void runUsingEncoder () {
-//        resetEncoder();
-//
-//        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//    }
-//
+
+
+    public void runUsingEncoder () {
+        resetEncoder();
+
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
     public void stop () {
         leftFrontDrive.setPower(0);
         rightFrontDrive.setPower(0);

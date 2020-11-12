@@ -13,24 +13,29 @@ public class Shooter {
         this.linearOpMode = linearOpMode;
     }
 
-    public void setLaunchAngle(double launchAngle) {
+    public void setLaunchAngle(double launchAngle) throws InterruptedException {
         robot.liftServo.setPosition(launchAngle);
+        Thread.sleep(1000);
     }
 
-    public void triggerFire() {
+    public void triggerFire() throws InterruptedException {
         robot.launchServo.setPosition(robot.LAUNCHER_FIRE_POSITION);
+        Thread.sleep(1000);
     }
 
-    public void triggerReset() {
+    public void triggerReset() throws InterruptedException {
         robot.launchServo.setPosition(robot.LAUNCHER_RESET_POSITION);
+        Thread.sleep(1000);
     }
 
-    public void wheelsOn() {
+    public void wheelsOn() throws InterruptedException{
+        Thread.sleep(2000);
         robot.leftLauncherMotor.setPower(1);
         robot.rightLauncherMotor.setPower(1);
     }
 
-    public  void wheelsOff() {
+    public  void wheelsOff() throws InterruptedException{
+        Thread.sleep(2000);
         robot.leftLauncherMotor.setPower(0);
         robot.rightLauncherMotor.setPower(0);
     }
