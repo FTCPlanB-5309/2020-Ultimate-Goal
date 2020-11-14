@@ -15,27 +15,26 @@ public class Shooter {
 
     public void setLaunchAngle(double launchAngle) throws InterruptedException {
         robot.liftServo.setPosition(launchAngle);
-        Thread.sleep(1000);
+        Thread.sleep(500);
     }
 
     public void triggerFire() throws InterruptedException {
         robot.launchServo.setPosition(robot.LAUNCHER_FIRE_POSITION);
-        Thread.sleep(1000);
+        Thread.sleep(750);
     }
 
     public void triggerReset() throws InterruptedException {
         robot.launchServo.setPosition(robot.LAUNCHER_RESET_POSITION);
-        Thread.sleep(1000);
+        Thread.sleep(750);
     }
 
     public void wheelsOn() throws InterruptedException{
-        Thread.sleep(2000);
         robot.leftLauncherMotor.setPower(1);
         robot.rightLauncherMotor.setPower(1);
+        Thread.sleep(500);
     }
 
-    public  void wheelsOff() throws InterruptedException{
-        Thread.sleep(2000);
+    public  void wheelsOff() {
         robot.leftLauncherMotor.setPower(0);
         robot.rightLauncherMotor.setPower(0);
     }
