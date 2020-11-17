@@ -51,6 +51,7 @@ public class TeleOp extends LinearOpMode {
 
 
             if(gamepad2.right_bumper) {
+                robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
                 robot.scoopServo.setPosition(robot.DROPPING_POSITION);
                 scoop = true;
             }
@@ -61,7 +62,9 @@ public class TeleOp extends LinearOpMode {
                 scoop = false;
                 robot.scoopServo.setPosition(robot.DRIVING_POSITION);
             }
-
+            if (gamepad2.dpad_down) {
+                robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+            }
 
             if (gamepad2.right_trigger > 0.8)
                 robot.launchServo.setPosition(robot.LAUNCHER_FIRE_POSITION);
@@ -87,11 +90,11 @@ public class TeleOp extends LinearOpMode {
             }
 
             if(gamepad2.x){
-                robot.liftServo.setPosition(robot.LAUNCHER_POWER_POSITION);
+                robot.liftServo.setPosition(robot.LAUNCHER_POWER_ANGLE);
             }
 
             if(gamepad2.y){
-                robot.liftServo.setPosition(robot.LAUNCHER_HIGH_POSITION);
+                robot.liftServo.setPosition(robot.LAUNCHER_HIGH_ANGLE);
             }
 
             slow_mode = false;

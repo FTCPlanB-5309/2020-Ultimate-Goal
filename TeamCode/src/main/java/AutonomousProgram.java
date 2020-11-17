@@ -9,6 +9,7 @@ public class AutonomousProgram extends LinearOpMode {
     Wobble wobble = new Wobble(robot, telemetry, this);
     Drive drive = new Drive(robot, telemetry, this);
     Shooter shooter = new Shooter(robot, telemetry, this);
+    GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
 
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
@@ -18,7 +19,8 @@ public class AutonomousProgram extends LinearOpMode {
         wobble.moveArm(robot.WOBBLE_ARM_UP);
         drive.backward(0.5, 60);
 
-        shooter.setLaunchAngle(robot.LAUNCHER_HIGH_POSITION);
+        gyroTurn.absolute(0);
+        shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE);
         shooter.wheelsOn();
         shooter.triggerFire();
         shooter.triggerReset();
@@ -31,6 +33,6 @@ public class AutonomousProgram extends LinearOpMode {
         drive.backward(0.25, 10);
         wobble.moveArm(robot.WOBBLE_ARM_DOWN);
         wobble.release();
-        wobble.moveArm(robot.WOBBLE_ARM_START);
+        wobble.moveArm(robot.WOBBLE_ARM_UP);
     }
 }

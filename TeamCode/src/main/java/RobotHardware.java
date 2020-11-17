@@ -91,8 +91,9 @@ public class RobotHardware
 
     public final double LAUNCHER_FIRE_POSITION = 0;
     public final double LAUNCHER_RESET_POSITION = 1;
-    public final double LAUNCHER_HIGH_POSITION = 0.72;
-    public final double LAUNCHER_POWER_POSITION = 0.65;
+    public final double LAUNCHER_HIGH_ANGLE = 0.72;
+    public final double LAUNCHER_POWER_ANGLE = 0.65;
+    public final double LAUNCHER_LOAD_ANGLE = 0.55;
 
     //Set real values for these
     public final int WOBBLE_ARM_START = 0;

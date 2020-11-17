@@ -34,7 +34,7 @@ public class GyroTurn {
             diff = target - currHeading;
             telemetry.addData("diff:", diff);
             telemetry.update();
-            if (diff < 0) {
+            if (diff > 0) {
                 if (Math.abs(diff) > 25) {
                     robot.leftFrontDrive.setPower(robot.HIGH_TURN_POWER);
                     robot.leftRearDrive.setPower(robot.HIGH_TURN_POWER);
@@ -52,7 +52,7 @@ public class GyroTurn {
                     robot.rightRearDrive.setPower(-robot.LOW_TURN_POWER);
                 }
             }
-            if (diff > 0) {
+            if (diff < 0) {
                 if (Math.abs(diff) > 25) {
                     robot.leftFrontDrive.setPower(-robot.HIGH_TURN_POWER);
                     robot.leftRearDrive.setPower(-robot.HIGH_TURN_POWER);
