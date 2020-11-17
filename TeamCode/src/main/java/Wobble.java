@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.robot.Robot;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+// Purpose: This is an object that can be used to manipulate the wobble attachment during the autonomous program
 
 public class Wobble {
     RobotHardware robot;
