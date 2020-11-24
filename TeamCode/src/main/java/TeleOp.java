@@ -1,4 +1,5 @@
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
 
@@ -64,6 +65,15 @@ public class TeleOp extends LinearOpMode {
             }
             if (gamepad2.dpad_down) {
                 robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+            }
+
+            if (gamepad2.dpad_left){
+                robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
+                robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
+            }
+            if (gamepad2.dpad_right){
+                robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
+                robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
             }
 
             if (gamepad2.right_trigger > 0.8)

@@ -60,6 +60,9 @@ public class RobotHardware
 
     public Servo scoopServo = null;
 
+    public Servo leftGrabberServo = null;
+    public Servo rightGrabberServo = null;
+
     public Servo liftServo = null;
 
     BNO055IMU imu;
@@ -86,8 +89,13 @@ public class RobotHardware
     public final double WOBBLE_SERVO_OPEN = 0.24;
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
-    public final double DROPPING_POSITION = 0.1;
+    public final double DROPPING_POSITION = 0.15;
     public final double DRIVING_POSITION = 0.3;
+
+    public final double LEFT_GRABBER_CLOSED = 0.02;
+    public final double RIGHT_GRABBER_CLOSED = 1;
+    public final double LEFT_GRABBER_OPEN = 0.35;
+    public final double RIGHT_GRABBER_OPEN = 0.66;
 
     public final double LAUNCHER_FIRE_POSITION = 0;
     public final double LAUNCHER_RESET_POSITION = 1;
@@ -116,6 +124,8 @@ public class RobotHardware
 
         scoopServo = hwMap.get(Servo.class, "scoopServo");
         liftServo = hwMap.get(Servo.class, "liftServo");
+        leftGrabberServo = hwMap.get(Servo.class, "leftGrabberServo");
+        rightGrabberServo = hwMap.get(Servo.class, "rightGrabberServo");
 
 //         Define and Initialize Motors
         leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
@@ -180,6 +190,8 @@ public class RobotHardware
 
         liftServo = hwMap.get(Servo.class, "liftServo");
 
+        leftGrabberServo = hwMap.get(Servo.class, "leftGrabberServo");
+        rightGrabberServo = hwMap.get(Servo.class, "rightGrabberServo");
 
 //         Define and Initialize Motors
         leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
