@@ -218,6 +218,14 @@ public class RobotHardware
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
+        rearDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
+        leftDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
+        rightDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
 
 //         Set all motors to zero power
         leftFrontDrive.setPower(0);
