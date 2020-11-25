@@ -27,6 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -151,17 +152,28 @@ public class RobotHardware
 
 
 
-        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
-        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
-        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
-        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
+//        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
+//        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
+//        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
+//        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
 
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
+        rearDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
+        leftDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
+        rightDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         wobbleServo.setPosition(WOBBLE_SERVO_CLOSED);
+        wobbleMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Set all motors to zero power
 //        leftFrontDrive.setPower(0);
@@ -213,6 +225,8 @@ public class RobotHardware
         leftRearDrive.setPower(0);
         rightRearDrive.setPower(0);
 
+        leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 //         Set all motors to run without encoders.
 //         May want to use RUN_USING_ENCODERS if encoders are installed.

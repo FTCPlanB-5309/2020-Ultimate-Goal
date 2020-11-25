@@ -2,6 +2,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Teleop")
@@ -213,6 +214,12 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("RLD", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("RRD", robot.rightFrontDrive.getCurrentPosition());
             telemetry.addData("liftServoPosition", robot.liftServo.getPosition());
+
+
+            telemetry.addData("front distance", robot.frontDistanceSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("right distance", robot.rightDistanceSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("rear distance", robot.rearDistanceSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("left distance", robot.leftDistanceSensor.getDistance(DistanceUnit.CM);
             telemetry.update();
 
 //                }
