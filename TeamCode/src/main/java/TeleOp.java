@@ -216,10 +216,10 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("liftServoPosition", robot.liftServo.getPosition());
 
 
-            telemetry.addData("front distance", robot.frontDistanceSensor.getDistance(DistanceUnit.CM));
-            telemetry.addData("right distance", robot.rightDistanceSensor.getDistance(DistanceUnit.CM));
-            telemetry.addData("rear distance", robot.rearDistanceSensor.getDistance(DistanceUnit.CM));
-            telemetry.addData("left distance", robot.leftDistanceSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("front distance", robot.frontDistanceSensor.getDistance(DistanceUnit.INCH));
+            telemetry.addData("right distance", robot.rightDistanceSensor.getDistance(DistanceUnit.INCH));
+            telemetry.addData("rear distance", robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
+            telemetry.addData("left distance", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
             telemetry.update();
 
 //                }
