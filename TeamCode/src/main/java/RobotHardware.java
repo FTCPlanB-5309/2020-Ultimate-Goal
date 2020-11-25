@@ -157,13 +157,13 @@ public class RobotHardware
 //        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
 //        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
 
-        frontDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
         Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
-        rearDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
         Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
-        leftDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
         Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
-        rightDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
         Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -218,13 +218,13 @@ public class RobotHardware
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        frontDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
         Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
-        rearDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
         Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
-        leftDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
         Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
-        rightDistanceSensor = hwMap.get(DistanceSensor.class, "sensor_range");
+        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
         Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
 
 //         Set all motors to zero power
