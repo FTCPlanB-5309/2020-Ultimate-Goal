@@ -6,21 +6,22 @@ import com.qualcomm.robotcore.robot.Robot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 // Purpose: This is an object that can be used to manipulate the wobble attachment during the autonomous program
 
-public class Wobble extends LinearOpMode {
+public class Wobble {
     RobotHardware robot;
     Telemetry telemetry;
     LinearOpMode linearOpMode;
-    Wobble wobble = new Wobble(robot, telemetry, this);
-    Drive drive = new Drive(robot, telemetry, this);
-    GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
-    Strafe strafe = new Strafe(robot, telemetry, this);
-
-    public void runOpMode() throws InterruptedException{}
+    Drive drive;
+    GyroTurn gyroTurn;
+    Strafe strafe;
 
     public Wobble (RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode) {
         this.robot = robot;
         this.telemetry = telemetry;
         this.linearOpMode = linearOpMode;
+
+        drive = new Drive(robot, telemetry, linearOpMode);
+        gyroTurn = new GyroTurn(robot, telemetry, linearOpMode);
+        strafe = new Strafe(robot, telemetry, linearOpMode);
     }
 
     public void moveArm (int clicks) {
