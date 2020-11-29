@@ -21,7 +21,6 @@ public class AutonomousProgram extends LinearOpMode {
         robot.scoopServo.setPosition(robot.DRIVING_POSITION);
         wobble.moveArm(robot.WOBBLE_ARM_UP);
         drive.backward(0.5, 60);
-
         WobbleTarget target = wobbleFinder.search();
 
         gyroTurn.absolute(0);
