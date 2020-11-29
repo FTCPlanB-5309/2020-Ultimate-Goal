@@ -14,6 +14,8 @@ public class Wobble {
     GyroTurn gyroTurn;
     Strafe strafe;
 
+    // Resturctured the Wobble constructor so that the needed objects are created here using the
+    // object global variables declared above.
     public Wobble (RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode) {
         this.robot = robot;
         this.telemetry = telemetry;
