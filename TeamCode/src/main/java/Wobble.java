@@ -43,12 +43,14 @@ public class Wobble {
     }
 
     public void grab() throws InterruptedException {
-        robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
+        robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_CLOSED);
+        robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_CLOSED);
         Thread.sleep(1000);
     }
 
     public void release() throws  InterruptedException {
-        robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
+        robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
+        robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
         Thread.sleep(1000);
     }
 
@@ -57,13 +59,15 @@ public class Wobble {
             case A:
                 strafe.left(0.5, 24);
                 robot.wobbleMotor.setTargetPosition(robot.WOBBLE_ARM_DOWN);
-                robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
+                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
+                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
                 break;
             case B:
                 strafe.right(0.5, 6);
                 drive.backward(0.5, 24);
                 robot.wobbleMotor.setTargetPosition(robot.WOBBLE_ARM_DOWN);
-                robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
+                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
+                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
                 break;
             case C:
                 gyroTurn.absolute(15);

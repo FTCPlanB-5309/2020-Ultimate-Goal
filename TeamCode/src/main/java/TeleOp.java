@@ -2,7 +2,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Teleop")
@@ -38,11 +37,13 @@ public class TeleOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             if (gamepad2.left_bumper) {
-                robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
+                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_CLOSED);
+                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_CLOSED);
             }
 
             if (gamepad2.left_trigger > 0.8) {
-                robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
+                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
+                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
             }
 
             if (Math.abs(gamepad2.left_stick_y) > robot.TELEOPDEADZONE) {
@@ -214,12 +215,6 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("RLD", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("RRD", robot.rightFrontDrive.getCurrentPosition());
             telemetry.addData("liftServoPosition", robot.liftServo.getPosition());
-
-
-            telemetry.addData("front distance", robot.frontDistanceSensor.getDistance(DistanceUnit.INCH));
-            telemetry.addData("right distance", robot.rightDistanceSensor.getDistance(DistanceUnit.INCH));
-            telemetry.addData("rear distance", robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
-            telemetry.addData("left distance", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
             telemetry.update();
 
 //                }

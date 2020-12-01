@@ -52,7 +52,8 @@ public class RobotHardware
     public DcMotor leftLauncherMotor = null;
     public DcMotor rightLauncherMotor = null;
 
-    public Servo wobbleServo = null;
+    public Servo leftWobbleServo = null;
+    public Servo rightWobbleServo = null;
 
     public Servo launchServo = null;
 
@@ -84,8 +85,10 @@ public class RobotHardware
     public final double MEDIUM_TURN_POWER = 0.12;
     public final double LOW_TURN_POWER = 0.04;
 
-    public final double WOBBLE_SERVO_OPEN = 0.24;
-    public final double WOBBLE_SERVO_CLOSED = 1.00;
+    public final double LEFT_WOBBLE_SERVO_OPEN = 0.24;
+    public final double LEFT_WOBBLE_SERVO_CLOSED = 1.00;
+    public final double RIGHT_WOBBLE_SERVO_OPEN = 0.76;
+    public final double RIGHT_WOBBLE_SERVO_CLOSED = 0;
     public final double SCOOPING_POSITION = 1.00;
     public final double DROPPING_POSITION = 0.15;
     public final double DRIVING_POSITION = 0.3;
@@ -111,11 +114,12 @@ public class RobotHardware
 
     }
 
-    public void init(HardwareMap ahwMap) {
-        // Save reference to Hardware map
+    public void assignHWMap (HardwareMap ahwMap){
         hwMap = ahwMap;
 
-        wobbleServo = hwMap.get(Servo.class, "wobbleServo");
+        leftWobbleServo = hwMap.get(Servo.class, "leftWobbleServo");
+        rightWobbleServo = hwMap.get(Servo.class, "rightWobbleServo");
+
         wobbleMotor = hwMap.get(DcMotor.class, "wobbleMotor");
 
         launchServo = hwMap.get(Servo.class, "launchServo");
@@ -134,6 +138,25 @@ public class RobotHardware
         leftLauncherMotor  = hwMap.get(DcMotor.class, "leftLauncherMotor");
         rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
 
+        frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
+        Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
+        rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
+        Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
+        leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
+        Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
+        rightDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rightDistanceSensor");
+        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
+
+        //        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
+        //        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
+        //        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
+        //        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
+    }
+
+    public void init(HardwareMap ahwMap) {
+        // Save reference to Hardware map
+        hwMap = ahwMap;
+        assignHWMap(hwMap);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -146,28 +169,12 @@ public class RobotHardware
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-
-
-
-//        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
-//        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
-//        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
-//        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
-
-        frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
-        Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
-        rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
-        Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
-        leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
-        Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
-        rightDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rightDistanceSensor");
-        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
-
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        wobbleServo.setPosition(WOBBLE_SERVO_CLOSED);
+        leftWobbleServo.setPosition(LEFT_WOBBLE_SERVO_CLOSED);
+        rightWobbleServo.setPosition(RIGHT_WOBBLE_SERVO_CLOSED);
         wobbleMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -190,39 +197,11 @@ public class RobotHardware
     public void teleopInit(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
-        wobbleServo = hwMap.get(Servo.class, "wobbleServo");
-        wobbleMotor = hwMap.get(DcMotor.class, "wobbleMotor");
-
-        scoopServo = hwMap.get(Servo.class, "scoopServo");
-
-        launchServo = hwMap.get(Servo.class, "launchServo");
-
-        liftServo = hwMap.get(Servo.class, "liftServo");
-
-        leftGrabberServo = hwMap.get(Servo.class, "leftGrabberServo");
-        rightGrabberServo = hwMap.get(Servo.class, "rightGrabberServo");
-
-//         Define and Initialize Motors
-        leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
-        rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
-        leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
-        rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
-
-        leftLauncherMotor  = hwMap.get(DcMotor.class, "leftLauncherMotor");
-        rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
+        assignHWMap(ahwMap);
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
-        Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
-        rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
-        Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
-        leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
-        Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
-        rightDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rightDistanceSensor");
-        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
 
 //         Set all motors to zero power
         leftFrontDrive.setPower(0);
