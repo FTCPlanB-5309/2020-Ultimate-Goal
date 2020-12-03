@@ -64,6 +64,7 @@ public class Wobble {
                 telemetry.update();
                 Thread.sleep(3000);
                 strafe.left(0.5, (int)distancetowall - 6);
+                gyroTurn.absolute(0);
                 break;
             case B:
                 distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
