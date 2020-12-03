@@ -44,14 +44,12 @@ public class Wobble {
     }
 
     public void grab() throws InterruptedException {
-        robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_CLOSED);
-        robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_CLOSED);
+        robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
         Thread.sleep(1000);
     }
 
     public void release() throws  InterruptedException {
-        robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
-        robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
+        robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
         Thread.sleep(1000);
     }
 
@@ -64,18 +62,18 @@ public class Wobble {
                 telemetry.update();
                 Thread.sleep(3000);
                 strafe.left(0.5, (int)distancetowall - 6);
-                gyroTurn.absolute(0);
                 break;
             case B:
                 distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
-                strafe.right(0.5, (int)distancetowall + 6);
+                strafe.right(0.5, (int)(distancetowall + 1.5));
                 Thread.sleep(100);
                 distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
-                drive.backward(0.5, 14);
+                drive.backward(0.5, 25);
+                gyroTurn.absolute(0);
                 break;
             case C:
                 distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
-                drive.backward(0.5, (int)distancetowall - 12);
+                drive.backward(0.5, 42);
                 Thread.sleep(100);
                 distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
                 strafe.left(0.5, (int)distancetowall - 6);

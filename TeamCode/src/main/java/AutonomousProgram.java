@@ -1,5 +1,6 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -16,23 +17,27 @@ public class AutonomousProgram extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
+        robot.voltage = getBatteryVoltage();
+        telemetry.addData("voltage", robot.voltage);
+        telemetry.update();
         waitForStart();
 
         robot.scoopServo.setPosition(robot.DRIVING_POSITION);
         wobble.moveArm(robot.WOBBLE_ARM_UP);
         drive.backward(0.5, 60);
-
+        
         WobbleTarget target = wobbleFinder.search();
 
         gyroTurn.absolute(0);
         telemetry.addData("Wall Distance", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
         telemetry.update();
-        while (robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) < 20) {
-            strafe.right(0.25, 1);
-        }
-        while (robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) > 30) {
-            strafe.left(0.25, 1);
-        }
+//        while (robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) < 20) {
+//            strafe.right(0.5, 3);
+//        }
+//        while (robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) > 30) {
+//            strafe.left(0.5, 3);
+//        }
+        strafe.left(0.5, ((int)robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) - 20));
         gyroTurn.absolute(0);
         shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE);
         shooter.wheelsOn();
@@ -51,17 +56,17 @@ public class AutonomousProgram extends LinearOpMode {
 //        wobble.moveArm(robot.WOBBLE_ARM_UP);
         wobble.place1stWobble(target);
 
-        if (target == WobbleTarget.B)
-            drive.forward(0.5, 6);
-        else if (target == WobbleTarget.C) {
-            gyroTurn.absolute(0);
-            drive.forward(0.5, 18);
-        }
-
         //driveTo (drive, turn, drive forward if needed)
-        //wobble.moveArm(robot.WOBBLE_ARM_DOWN);
-        //wobble.something
-        //wobble.moveArm(robot.WOBBLE_ARM_UP);
+        wobble.moveArm(robot.WOBBLE_ARM_DOWN);
+        wobble.release();
+        wobble.moveArm(robot.WOBBLE_ARM_UP);
         //gyroTurn.absolute(90);
+    }
+    double getBatteryVoltage() {double result = Double.POSITIVE_INFINITY;
+        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
+            double voltage = sensor.getVoltage();
+            if (voltage > 0) {result = Math.min(result, voltage);}
+        }
+        return result;
     }
 }

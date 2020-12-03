@@ -14,6 +14,7 @@ public class Shooter {
     }
 
     public void setLaunchAngle(double launchAngle) throws InterruptedException {
+        launchAngle = 0.733 + (13.2 - robot.voltage)*0.005;
         robot.liftServo.setPosition(launchAngle);
         Thread.sleep(500);
     }
