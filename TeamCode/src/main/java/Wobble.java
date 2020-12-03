@@ -71,7 +71,7 @@ public class Wobble {
                 strafe.right(0.5, (int)distancetowall + 6);
                 Thread.sleep(100);
                 distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
-                drive.backward(0.5, (int)distancetowall - 6);
+                drive.backward(0.5, 14);
                 break;
             case C:
                 distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
