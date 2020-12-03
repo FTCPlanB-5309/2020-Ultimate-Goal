@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.robot.Robot;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 // Purpose: This is an object that can be used to manipulate the wobble attachment during the autonomous program
 
 public class Wobble {
@@ -55,23 +56,25 @@ public class Wobble {
     }
 
     public void place1stWobble(WobbleTarget wobbleTarget) throws InterruptedException {
+        double distancetowall;
         switch (wobbleTarget){
             case A:
-                strafe.left(0.5, 24);
-                robot.wobbleMotor.setTargetPosition(robot.WOBBLE_ARM_DOWN);
-                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
-                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
+                distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                strafe.left(0.5, (int)distancetowall - 6);
                 break;
             case B:
-                strafe.right(0.5, 6);
-                drive.backward(0.5, 24);
-                robot.wobbleMotor.setTargetPosition(robot.WOBBLE_ARM_DOWN);
-                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
-                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
+                distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                strafe.right(0.5, (int)distancetowall + 6);
+                Thread.sleep(100);
+                distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
+                drive.backward(0.5, (int)distancetowall - 6);
                 break;
             case C:
-                gyroTurn.absolute(15);
-                drive.backward(0.5, 48);
+                distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
+                drive.backward(0.5, (int)distancetowall - 12);
+                Thread.sleep(100);
+                distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                strafe.left(0.5, (int)distancetowall - 6);
                 break;
         }
     }
