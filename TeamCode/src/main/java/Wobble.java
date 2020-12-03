@@ -60,6 +60,9 @@ public class Wobble {
         switch (wobbleTarget){
             case A:
                 distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                telemetry.addData("Distance to wall", distancetowall);
+                telemetry.update();
+                Thread.sleep(3000);
                 strafe.left(0.5, (int)distancetowall - 6);
                 break;
             case B:
