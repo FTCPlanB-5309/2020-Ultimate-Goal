@@ -84,7 +84,7 @@ public class RobotHardware
     public final double MEDIUM_TURN_POWER = 0.12;
     public final double LOW_TURN_POWER = 0.04;
 
-    public final double WOBBLE_SERVO_OPEN = 0.24;
+    public final double WOBBLE_SERVO_OPEN = 0.78;
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
     public final double DROPPING_POSITION = 0.10;//previously .15

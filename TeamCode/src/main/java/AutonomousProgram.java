@@ -61,6 +61,23 @@ public class AutonomousProgram extends LinearOpMode {
         wobble.release();
         wobble.moveArm(robot.WOBBLE_ARM_UP);
         //gyroTurn.absolute(90);
+            double distancetowall;
+            switch (target){
+                case A:
+                    gyroTurn.absolute(0);
+                    distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                    strafe.right(0.5, (int)distancetowall + 6);
+                    drive.backward(0.5, 12);
+                    break;
+                case B:
+                    drive.forward(0.5, 10);
+                    break;
+                case C:
+                    distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
+                    gyroTurn.absolute(0);
+                    drive.forward(0.5, 33);
+                    break;
+        }
     }
     double getBatteryVoltage() {double result = Double.POSITIVE_INFINITY;
         for (VoltageSensor sensor : hardwareMap.voltageSensor) {

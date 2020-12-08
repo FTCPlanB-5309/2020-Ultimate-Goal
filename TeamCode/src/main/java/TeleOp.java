@@ -37,13 +37,11 @@ public class TeleOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             if (gamepad2.left_bumper) {
-                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_CLOSED);
-                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_CLOSED);
+                robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
             }
 
             if (gamepad2.left_trigger > 0.8) {
-                robot.leftWobbleServo.setPosition(robot.LEFT_WOBBLE_SERVO_OPEN);
-                robot.rightWobbleServo.setPosition(robot.RIGHT_WOBBLE_SERVO_OPEN);
+                robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
             }
 
             if (Math.abs(gamepad2.left_stick_y) > robot.TELEOPDEADZONE) {
@@ -190,7 +188,7 @@ public class TeleOp extends LinearOpMode {
                     double RL_power = Range.clip(RL_power_raw, -1, 1);
                     double RR_power = Range.clip(RR_power_raw, -1, 1);
 
-                    if (!gamepad1.a) { //This is normal mode
+                    if (!gamepad1.left_stick_button) { //This is normal mode
                         FL_power = FL_power * robot.NOTTURBOFACTOR;
                         FR_power = FR_power * robot.NOTTURBOFACTOR;
                         RL_power = RL_power * robot.NOTTURBOFACTOR;
