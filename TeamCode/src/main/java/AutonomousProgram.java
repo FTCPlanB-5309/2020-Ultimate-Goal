@@ -13,7 +13,7 @@ public class AutonomousProgram extends LinearOpMode {
     Shooter shooter = new Shooter(robot, telemetry, this);
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
-    WobbleTargetFinder wobbleFinder = new WobbleTargetFinder();
+    WobbleTargetFinder wobbleFinder = new WobbleTargetFinder(robot, telemetry, this);
 
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
@@ -25,18 +25,17 @@ public class AutonomousProgram extends LinearOpMode {
         robot.scoopServo.setPosition(robot.DRIVING_POSITION);
         wobble.moveArm(robot.WOBBLE_ARM_UP);
         drive.backward(0.5, 60);
-        
-        WobbleTarget target = wobbleFinder.search();
 
+
+        WobbleTarget target = wobbleFinder.search();
+        telemetry.addData("position", target);
+        telemetry.update();
+        Thread.sleep(1000);
+        
         gyroTurn.absolute(0);
         telemetry.addData("Wall Distance", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
         telemetry.update();
-//        while (robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) < 20) {
-//            strafe.right(0.5, 3);
-//        }
-//        while (robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) > 30) {
-//            strafe.left(0.5, 3);
-//        }
+
         strafe.left(0.5, ((int)robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) - 20));
         gyroTurn.absolute(0);
         shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE);
