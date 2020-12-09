@@ -12,8 +12,11 @@ public class TeleOp extends LinearOpMode {
 
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         int stick_direction;
+        autoLoadState load_state = autoLoadState.GRAB;
+        boolean autoLoadToggle = false;
+        long system_time_base = 0;
         double ly;
         double rx;
         double lx;
@@ -32,7 +35,11 @@ public class TeleOp extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
+        robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
+        robot.scoopServo.setPosition(robot.DRIVING_POSITION);
+        robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
+        robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -56,7 +63,7 @@ public class TeleOp extends LinearOpMode {
                 robot.scoopServo.setPosition(robot.DROPPING_POSITION);
                 scoop = true;
             }
-            else if (scoop)
+            else if (scoop && !autoLoadToggle)
                 robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
 
             if (gamepad2.dpad_up) {
@@ -86,6 +93,57 @@ public class TeleOp extends LinearOpMode {
                     stick_direction = 1;
                 else stick_direction = -1;
                 robot.liftServo.setPosition(robot.liftServo.getPosition() + 0.001 * stick_direction);
+            }
+
+//            if(gamepad2.right_stick_button) {
+//                robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
+//                robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
+//                Thread.sleep(robot.GRAB_TIMER);
+//                robot.scoopServo.setPosition(robot.DROPPING_POSITION);
+//                robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
+//                Thread.sleep(robot.RAISE_TIMER);
+//                robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
+//                robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
+//                Thread.sleep(robot.RELEASE_TIMER);
+//                robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+//                robot.liftServo.setPosition(robot.LAUNCHER_HIGH_ANGLE);
+//                Thread.sleep(robot.RESET_TIMER);
+//            }
+            if(gamepad2.right_stick_button) {
+                autoLoadToggle = true;
+            }
+
+            if(autoLoadToggle) {
+                switch(load_state) {
+                    case GRAB:
+                        if(system_time_base == 0)
+                            system_time_base = System.currentTimeMillis();
+                        robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
+                        robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
+                        if(System.currentTimeMillis() > system_time_base + robot.GRAB_TIMER)
+                            load_state = autoLoadState.RAISE;
+                        break;
+                    case RAISE:
+                        robot.scoopServo.setPosition(robot.DROPPING_POSITION);
+                        robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
+                        if(System.currentTimeMillis() > system_time_base + robot.RAISE_TIMER)
+                            load_state = autoLoadState.RELEASE;
+                        break;
+                    case RELEASE:
+                        robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
+                        robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
+                        if(System.currentTimeMillis() > system_time_base + robot.RELEASE_TIMER) {
+                            system_time_base = 0;
+                            load_state = autoLoadState.GRAB;
+                            autoLoadToggle = false;
+                        }
+                        break;
+                    default:
+                        system_time_base = 0;
+                        load_state = autoLoadState.GRAB;
+                        autoLoadToggle = false;
+                        break;
+                }
             }
 
 
@@ -213,6 +271,8 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("RLD", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("RRD", robot.rightFrontDrive.getCurrentPosition());
             telemetry.addData("liftServoPosition", robot.liftServo.getPosition());
+            telemetry.addData("Auto Loader State", load_state);
+            telemetry.addData("Auto Loader Toggle", autoLoadToggle);
             telemetry.update();
 
 //                }
