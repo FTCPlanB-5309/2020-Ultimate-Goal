@@ -211,7 +211,7 @@ public class RobotHardware
         initTfod();
         if (tfod != null)
             tfod.activate();
-
+            tfod.setZoom(2, 16.0/9.0);
     }
 
     /**

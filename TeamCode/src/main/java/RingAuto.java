@@ -32,6 +32,7 @@ public class RingAuto extends LinearOpMode{
 
         if (tfod != null) {
             tfod.activate();
+            tfod.setZoom(2, 16.0/9.0);
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
@@ -50,6 +51,7 @@ public class RingAuto extends LinearOpMode{
         waitForStart();
         if (tfod != null) {
             tfod.activate();
+            tfod.setZoom(2, 16.0/9.0);
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
             // This can result in lower detection accuracy at longer distances (> 55cm or 22").

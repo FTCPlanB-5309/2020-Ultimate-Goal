@@ -21,17 +21,22 @@ public class AutonomousProgram extends LinearOpMode {
         telemetry.addData("voltage", robot.voltage);
         telemetry.update();
         waitForStart();
+        if (robot.tfod != null) {
+            robot.tfod.activate();
+            robot.tfod.setZoom(2, 16.0 / 9.0);
+        }
+
+        WobbleTarget target = wobbleFinder.search();
+        telemetry.addData("position", target);
+        telemetry.update();
+        Thread.sleep(1000);
 
         robot.scoopServo.setPosition(robot.DRIVING_POSITION);
         wobble.moveArm(robot.WOBBLE_ARM_UP);
         drive.backward(0.5, 60);
 
 
-        WobbleTarget target = wobbleFinder.search();
-        telemetry.addData("position", target);
-        telemetry.update();
-        Thread.sleep(1000);
-        
+
         gyroTurn.absolute(0);
         telemetry.addData("Wall Distance", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
         telemetry.update();

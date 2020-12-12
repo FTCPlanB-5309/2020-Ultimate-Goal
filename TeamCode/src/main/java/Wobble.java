@@ -40,7 +40,7 @@ public class Wobble {
             telemetry.update();
             Thread.yield();
         }
-        robot.wobbleMotor.setPower(0);
+//        robot.wobbleMotor.setPower(0);
     }
 
     public void grab() throws InterruptedException {
