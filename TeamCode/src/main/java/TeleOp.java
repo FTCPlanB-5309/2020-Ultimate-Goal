@@ -133,12 +133,10 @@ public class TeleOp extends LinearOpMode {
                         robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
                         robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
                         if(System.currentTimeMillis() > system_time_base + robot.RELEASE_TIMER) {
-                            system_time_base = 0;
-                            load_state = autoLoadState.GRAB;
-                            autoLoadToggle = false;
+                            load_state = autoLoadState.RESET;
                         }
                         break;
-                    default:
+                    case RESET:
                         system_time_base = 0;
                         load_state = autoLoadState.GRAB;
                         autoLoadToggle = false;
@@ -272,6 +270,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("RRD", robot.rightFrontDrive.getCurrentPosition());
             telemetry.addData("liftServoPosition", robot.liftServo.getPosition());
             telemetry.addData("Auto Loader State", load_state);
+            telemetry.addData("Scoop State", scoop);
             telemetry.addData("Auto Loader Toggle", autoLoadToggle);
             telemetry.update();
 
