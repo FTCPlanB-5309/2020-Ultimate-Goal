@@ -42,30 +42,16 @@ public class Strafe {
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 //            telemetry.update();
 
-            if (currentDirection < mainDirection) {
-                robot.leftFrontDrive.setPower(speed + 0.02);
-                robot.leftRearDrive.setPower(speed - 0.02);
-                robot.rightFrontDrive.setPower(speed + 0.02);
-                robot.rightRearDrive.setPower(speed - 0.02);
+            robot.leftFrontDrive.setPower(-speed);
+            robot.leftRearDrive.setPower(speed);
+            robot.rightFrontDrive.setPower(speed);
+            robot.rightRearDrive.setPower(-speed);
             }
-            else if (currentDirection > mainDirection) {
-                robot.leftFrontDrive.setPower(speed - 0.02);
-                robot.leftRearDrive.setPower(speed + 0.02);
-                robot.rightFrontDrive.setPower(speed - 0.02);
-                robot.rightRearDrive.setPower(speed + 0.02);
-            }
-            else {
-                robot.leftFrontDrive.setPower(-speed);
-                robot.leftRearDrive.setPower(speed);
-                robot.rightFrontDrive.setPower(speed);
-                robot.rightRearDrive.setPower(-speed);
-            }
-            currentDirection = robot.getHeading();
-            telemetry.addData("current: ", currentDirection);
+
             telemetry.addData("main direction: ", mainDirection);
             telemetry.addData("speed: ", speed);
             telemetry.update();
-        }
+
 
         robot.stop ();
     }
@@ -97,24 +83,11 @@ public class Strafe {
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 //            telemetry.update();
 
-            if (currentDirection < mainDirection) {
-                robot.leftFrontDrive.setPower(speed - 0.02);
-                robot.leftRearDrive.setPower(speed + 0.02);
-                robot.rightFrontDrive.setPower(speed - 0.02);
-                robot.rightRearDrive.setPower(speed + 0.02);
-            } else if (currentDirection > mainDirection) {
-                robot.leftFrontDrive.setPower(speed + 0.02);
-                robot.leftRearDrive.setPower(speed - 0.02);
-                robot.rightFrontDrive.setPower(speed + 0.02);
-                robot.rightRearDrive.setPower(speed - 0.02);
-            } else {
-                robot.leftFrontDrive.setPower(-speed);
-                robot.leftRearDrive.setPower(speed);
-                robot.rightFrontDrive.setPower(speed);
-                robot.rightRearDrive.setPower(-speed);
-            }
-            currentDirection = robot.getHeading();
-            telemetry.addData("current: ", currentDirection);
+            robot.leftFrontDrive.setPower(-speed);
+            robot.leftRearDrive.setPower(speed);
+            robot.rightFrontDrive.setPower(speed);
+            robot.rightRearDrive.setPower(-speed);
+
             telemetry.addData("main direction: ", mainDirection);
             telemetry.addData("speed: ", speed);
             telemetry.update();
