@@ -122,9 +122,11 @@ public class TeleOp extends LinearOpMode {
                         }
                         break;
                     case RESET:
-                        system_time_base = 0;
-                        load_state = autoLoadState.GRAB;
-                        autoLoadToggle = false;
+                        if(System.currentTimeMillis() > system_time_base + robot.RESET_TIMER) {
+                            system_time_base = 0;
+                            load_state = autoLoadState.GRAB;
+                            autoLoadToggle = false;
+                        }
                         break;
                 }
             }
