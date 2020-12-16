@@ -24,8 +24,6 @@ public class TeleOp extends LinearOpMode {
         boolean normal_mode;
         boolean scoop = true;
         boolean fire = false;
-//        boolean slow_mode;
-//        boolean normal_mode;
 
         robot.teleopInit(hardwareMap);
 
@@ -95,20 +93,7 @@ public class TeleOp extends LinearOpMode {
                 robot.liftServo.setPosition(robot.liftServo.getPosition() + 0.001 * stick_direction);
             }
 
-//            if(gamepad2.right_stick_button) {
-//                robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
-//                robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
-//                Thread.sleep(robot.GRAB_TIMER);
-//                robot.scoopServo.setPosition(robot.DROPPING_POSITION);
-//                robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
-//                Thread.sleep(robot.RAISE_TIMER);
-//                robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
-//                robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
-//                Thread.sleep(robot.RELEASE_TIMER);
-//                robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
-//                robot.liftServo.setPosition(robot.LAUNCHER_HIGH_ANGLE);
-//                Thread.sleep(robot.RESET_TIMER);
-//            }
+
             if(gamepad2.right_stick_button) {
                 autoLoadToggle = true;
             }
@@ -273,70 +258,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Scoop State", scoop);
             telemetry.addData("Auto Loader Toggle", autoLoadToggle);
             telemetry.update();
-
-//                }
-//                if (slow_mode == false && normal_mode == false) {
-//                    robot.leftFrontDrive.setPower(0);
-//                    robot.rightFrontDrive.setPower(0);
-//                    robot.leftRearDrive.setPower(0);
-//                    robot.rightRearDrive.setPower(0);
-//                }
-//            }
-//
-//
-//            if (Math.abs(gamepad2.right_stick_y) > robot.TELEOPDEADZONE) { //Move the lift up and down
-//                robot.liftMotor.setPower(Range.clip(gamepad2.right_stick_y, -1.0, 1.0));
-//            } else {
-//                robot.liftMotor.setPower(0);
-//            }
-//
-//
-//            if (gamepad1.left_trigger > 0.5) { // Grab the foundation
-//                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_DOWN);
-//                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_DOWN);
-//            }
-//
-//            if (gamepad1.left_bumper) { // Let go of the foundation
-//                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
-//                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
-//            }
-//
-//
-//            if (gamepad2.y) {
-//                robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_IN);
-//            }
-//
-//            if (gamepad2.a) {
-//                robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_OUT);
-//            }
-//
-//            if (gamepad2.b && !gamepad2.start) {
-//                robot.capStoneHolder.setPosition(robot.CAPSTONE_HOLDER_RELEASE);
-//            }
-//            if (gamepad2.x) {
-//                robot.capStoneHolder.setPosition(robot.CAPSTONE_HOLDER_GRAB);
-//            }
-//
-//
-//            if (gamepad2.left_bumper) { //Let go of the block
-//                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-//
-//            } else if (gamepad2.left_trigger > 0.5) { //Grab a block
-//                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
-//            }
-//
-//            if (gamepad2.dpad_up) {
-//                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-//            }
-//
-//            if (gamepad2.dpad_down) {
-//                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
-//            }
-//
-//
-//            // Pace this loop so jaw action is reasonable speed.
-//            sleep(50);
-//
+            
        }
     }
 }

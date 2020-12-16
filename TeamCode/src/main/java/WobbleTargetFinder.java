@@ -8,6 +8,7 @@ public class WobbleTargetFinder {
     RobotHardware robot;
     Telemetry telemetry;
     LinearOpMode linearOpMode;
+    WobbleTarget target = WobbleTarget.A;
 
     public WobbleTargetFinder(RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode) {
         this.robot = robot;
@@ -16,8 +17,6 @@ public class WobbleTargetFinder {
     }
 
     public WobbleTarget search() throws InterruptedException {
-        if (robot.tfod != null)
-            robot.tfod.activate();
         if (linearOpMode.opModeIsActive()) {
             if (robot.tfod != null) {
                 // getUpdatedRecognitions() will return null if no new information is available since
@@ -35,11 +34,9 @@ public class WobbleTargetFinder {
                                 recognition.getRight(), recognition.getBottom());
 
                         if (recognition.getLabel() == "Quad")
-                            return WobbleTarget.C;
+                            target =  WobbleTarget.C;
                         else if (recognition.getLabel() == "Single")
-                            return WobbleTarget.B;
-                        else
-                            return WobbleTarget.A;
+                            target = WobbleTarget.B;
                     }
                     telemetry.update();
                 }
@@ -50,6 +47,6 @@ public class WobbleTargetFinder {
             robot.tfod.shutdown();
         }
 
-        return WobbleTarget.A;
+        return target;
     }
 }

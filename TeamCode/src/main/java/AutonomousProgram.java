@@ -21,10 +21,6 @@ public class AutonomousProgram extends LinearOpMode {
         telemetry.addData("voltage", robot.voltage);
         telemetry.update();
         waitForStart();
-        if (robot.tfod != null) {
-            robot.tfod.activate();
-            robot.tfod.setZoom(2, 16.0 / 9.0);
-        }
 
         WobbleTarget target = wobbleFinder.search();
         telemetry.addData("position", target);
