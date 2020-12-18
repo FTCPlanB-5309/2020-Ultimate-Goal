@@ -91,13 +91,13 @@ public class RobotHardware
     public final double WOBBLE_SERVO_OPEN = 0.78;
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
-    public final double DROPPING_POSITION = 0.10;//previously .15
+    public final double DROPPING_POSITION = 0.15;//previously .10
     public final double DRIVING_POSITION = 0.3;
 
     public final long GRAB_TIMER = 300;
     public final long RAISE_TIMER = 1250 + GRAB_TIMER;
-    public final long RELEASE_TIMER = 300 + RAISE_TIMER;
-    public final long RESET_TIMER = 1250 + RELEASE_TIMER;
+    public final long RELEASE_TIMER = 200 + RAISE_TIMER;//previously 300
+    public final long RESET_TIMER = 1150 + RELEASE_TIMER;//previously 1250
 
 
     public final double LEFT_GRABBER_CLOSED = 0.02;
@@ -107,8 +107,8 @@ public class RobotHardware
 
     public final double LAUNCHER_FIRE_POSITION = 0;
     public final double LAUNCHER_RESET_POSITION = 1;
-    public final double LAUNCHER_HIGH_ANGLE = 0.807;
-    public final double LAUNCHER_POWER_ANGLE = 0.776;
+    public final double LAUNCHER_HIGH_ANGLE = 0.776;
+    public final double LAUNCHER_POWER_ANGLE = 0.746;
 
     public final double LAUNCHER_LOAD_ANGLE = 0.59;
 
@@ -207,11 +207,13 @@ public class RobotHardware
 //        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        initVuforia();
-        initTfod();
-        if (tfod != null)
-            tfod.activate();
-            tfod.setZoom(2, 16.0/9.0);
+
+        //ToDo: fix camera
+//        initVuforia();
+//        initTfod();
+//        if (tfod != null)
+//            tfod.activate();
+//            tfod.setZoom(2.5, 16.0/9.0);
     }
 
     /**

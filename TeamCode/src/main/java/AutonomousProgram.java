@@ -22,7 +22,8 @@ public class AutonomousProgram extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        WobbleTarget target = wobbleFinder.search();
+//        WobbleTarget target = wobbleFinder.search();
+        WobbleTarget target = WobbleTarget.A;
         telemetry.addData("position", target);
         telemetry.update();
         Thread.sleep(1000);
@@ -39,7 +40,8 @@ public class AutonomousProgram extends LinearOpMode {
 
         strafe.left(0.5, ((int)robot.leftDistanceSensor.getDistance(DistanceUnit.INCH) - 20));
         gyroTurn.absolute(0);
-        shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE);
+//        shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE); //ToDo: find a formula that works
+        robot.liftServo.setPosition(robot.LAUNCHER_HIGH_ANGLE);
         shooter.wheelsOn();
         shooter.triggerFire();
         shooter.triggerReset();
