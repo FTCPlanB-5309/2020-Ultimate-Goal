@@ -32,7 +32,7 @@ public class RingAuto extends LinearOpMode{
 
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(2, 16.0/9.0);
+            tfod.setZoom(2.5, 16.0/9.0);
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
@@ -51,7 +51,7 @@ public class RingAuto extends LinearOpMode{
         waitForStart();
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(2, 16.0/9.0);
+            tfod.setZoom(2.5, 16.0/9.0);
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
@@ -81,6 +81,22 @@ public class RingAuto extends LinearOpMode{
                                     recognition.getLeft(), recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                     recognition.getRight(), recognition.getBottom());
+                            double height = Math.abs(recognition.getTop() - recognition.getBottom());
+                            if (recognition.getLabel() == "Quad")
+                                telemetry.addData("Target C",height);
+                            else if (recognition.getLabel() == "Single") {
+                                telemetry.addData("Stack height", height);
+//                                telemetry.update();
+                                if (height < 60) {
+                                    telemetry.addData("Target B",height);
+                                }
+                                else {
+                                    telemetry.addData("Quad stack detected", height);
+                                }
+                            }
+                            else {
+                                telemetry.addData("Target","A");
+                            }
                         }
                         telemetry.update();
                     }

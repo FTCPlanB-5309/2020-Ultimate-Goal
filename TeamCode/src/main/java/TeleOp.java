@@ -134,8 +134,8 @@ public class TeleOp extends LinearOpMode {
 
 
             if(gamepad2.a){
-                robot.leftLauncherMotor.setPower(1);
-                robot.rightLauncherMotor.setPower(1);
+                robot.leftLauncherMotor.setPower(0.95);
+                robot.rightLauncherMotor.setPower(0.95);
             }
 
             if(gamepad2.b){
@@ -252,14 +252,16 @@ public class TeleOp extends LinearOpMode {
                     robot.rightRearDrive.setPower(0);
                 }
             }
-            telemetry.addData("FLD", robot.leftFrontDrive.getCurrentPosition());
-            telemetry.addData("FRD", robot.rightFrontDrive.getCurrentPosition());
-            telemetry.addData("RLD", robot.leftRearDrive.getCurrentPosition());
-            telemetry.addData("RRD", robot.rightFrontDrive.getCurrentPosition());
-            telemetry.addData("liftServoPosition", robot.liftServo.getPosition());
-            telemetry.addData("Auto Loader State", load_state);
-            telemetry.addData("Scoop State", scoop);
-            telemetry.addData("Auto Loader Toggle", autoLoadToggle);
+//            telemetry.addData("FLD", robot.leftFrontDrive.getCurrentPosition());
+//            telemetry.addData("FRD", robot.rightFrontDrive.getCurrentPosition());
+//            telemetry.addData("RLD", robot.leftRearDrive.getCurrentPosition());
+//            telemetry.addData("RRD", robot.rightFrontDrive.getCurrentPosition());
+//            telemetry.addData("liftServoPosition", robot.liftServo.getPosition());
+//            telemetry.addData("Auto Loader State", load_state);
+//            telemetry.addData("Scoop State", scoop);
+//            telemetry.addData("Auto Loader Toggle", autoLoadToggle);
+            telemetry.addData("left position", robot.leftLauncherMotor.getCurrentPosition());
+            telemetry.addData("right position", robot.rightLauncherMotor.getCurrentPosition());
             telemetry.update();
             
        }

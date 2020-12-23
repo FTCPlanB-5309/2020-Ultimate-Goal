@@ -9,6 +9,7 @@ public class WobbleTargetFinder {
     Telemetry telemetry;
     LinearOpMode linearOpMode;
     WobbleTarget target = WobbleTarget.A;
+    double midHeight = 60;//height for quad is 95, but 35 for single
 
     public WobbleTargetFinder(RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode) {
         this.robot = robot;
@@ -35,8 +36,20 @@ public class WobbleTargetFinder {
 
                         if (recognition.getLabel() == "Quad")
                             target =  WobbleTarget.C;
-                        else if (recognition.getLabel() == "Single")
-                            target = WobbleTarget.B;
+                        else if (recognition.getLabel() == "Single") {
+                            double height = Math.abs(recognition.getTop() - recognition.getBottom());
+
+//                            telemetry.addData(String.format("Stack height: %d", i), "%.03f", height);
+//                            Thread.sleep(2000);
+                            if (height < midHeight) {
+                                telemetry.addData("Single detected", height);
+                                target = WobbleTarget.B;
+                            }
+                            else {
+                                telemetry.addData("Quad stack detected", height);
+                                target = WobbleTarget.C;
+                            }
+                        }
                     }
                     telemetry.update();
                 }
