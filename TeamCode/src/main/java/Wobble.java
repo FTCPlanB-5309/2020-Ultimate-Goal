@@ -57,22 +57,20 @@ public class Wobble {
         double distancetowall;
         switch (wobbleTarget){
             case A:
-                distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                distancetowall = robot.getDistanceToWall(10);
                 strafe.left(0.5, (int)distancetowall - 6);
                 break;
             case B:
-                distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                distancetowall = robot.getDistanceToWall(25);
                 strafe.right(0.5, (int)(distancetowall + 1.5));
                 Thread.sleep(100);
-                distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
                 drive.backward(0.5, 25);
                 gyroTurn.absolute(0);
                 break;
             case C:
-                distancetowall = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
                 drive.backward(0.5, 42);
                 Thread.sleep(100);
-                distancetowall = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+                distancetowall = robot.getDistanceToWall(10);
                 strafe.left(0.5, (int)distancetowall - 6);
                 break;
         }

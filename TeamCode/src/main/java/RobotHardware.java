@@ -40,6 +40,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -70,7 +71,7 @@ public class RobotHardware
     BNO055IMU imu;
 
     public Rev2mDistanceSensor leftDistanceSensor;
-    public Rev2mDistanceSensor rightDistanceSensor;
+    public Rev2mDistanceSensor leftDistanceSensorTwo;
     public Rev2mDistanceSensor rearDistanceSensor;
     public Rev2mDistanceSensor frontDistanceSensor;
 
@@ -183,8 +184,8 @@ public class RobotHardware
         Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
         leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
         Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
-        rightDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rightDistanceSensor");
-        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
+        leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "rightDistanceSensor");
+        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensorTwo;
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -208,12 +209,12 @@ public class RobotHardware
 //        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //ToDo: fix camera
-//        initVuforia();
-//        initTfod();
-//        if (tfod != null)
-//            tfod.activate();
-//            tfod.setZoom(2.5, 16.0/9.0);
+
+        initVuforia();
+        initTfod();
+        if (tfod != null)
+            tfod.activate();
+            tfod.setZoom(2.5, 16.0/9.0);
     }
 
     /**
@@ -276,8 +277,8 @@ public class RobotHardware
         Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
         leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
         Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
-        rightDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rightDistanceSensor");
-        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)rightDistanceSensor;
+        leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "rightDistanceSensor");
+        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensorTwo;
 
 //         Set all motors to zero power
         leftFrontDrive.setPower(0);
@@ -295,6 +296,16 @@ public class RobotHardware
         leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+    }
+
+    public double getDistanceToWall(double defaultDistance) {
+        if (leftDistanceSensor.getDistance(DistanceUnit.INCH) > 72) {
+            if (leftDistanceSensorTwo.getDistance(DistanceUnit.INCH) > 72) {
+                return defaultDistance;
+            }
+            return leftDistanceSensorTwo.getDistance(DistanceUnit.INCH);
+        }
+        return leftDistanceSensor.getDistance(DistanceUnit.INCH);
     }
 
     public void resetEncoder () {
