@@ -1,4 +1,5 @@
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
@@ -134,7 +135,9 @@ public class TeleOp extends LinearOpMode {
 
 
             if(gamepad2.a){
+                robot.leftLauncherMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.leftLauncherMotor.setPower(0.95);
+                robot.rightLauncherMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.rightLauncherMotor.setPower(0.95);
             }
 
