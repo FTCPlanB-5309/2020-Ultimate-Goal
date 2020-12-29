@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "Autonomous")
+@Autonomous(name = "TelemetryReader")
 
 public class TelemetryReader extends LinearOpMode {
     RobotHardware robot = new RobotHardware();
