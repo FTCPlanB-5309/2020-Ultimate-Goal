@@ -27,6 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -74,6 +75,7 @@ public class RobotHardware
     public Rev2mDistanceSensor leftDistanceSensorTwo;
     public Rev2mDistanceSensor rearDistanceSensor;
     public Rev2mDistanceSensor frontDistanceSensor;
+    public ColorSensor colorSensor;
 
     HardwareMap hwMap           =  null;
 
@@ -181,6 +183,8 @@ public class RobotHardware
         Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
         leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
         Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensorTwo;
+
+        colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -294,13 +298,15 @@ public class RobotHardware
     }
 
     public double getDistanceToWall(double defaultDistance) {
-        if (leftDistanceSensor.getDistance(DistanceUnit.INCH) > 72) {
-            if (leftDistanceSensorTwo.getDistance(DistanceUnit.INCH) > 72) {
+        double leftDistance = leftDistanceSensor.getDistance(DistanceUnit.INCH);
+        double leftDistanceTwo = leftDistanceSensorTwo.getDistance(DistanceUnit.INCH);
+        if (leftDistance > 72) {
+            if (leftDistanceTwo > 72) {
                 return defaultDistance;
             }
-            return leftDistanceSensorTwo.getDistance(DistanceUnit.INCH);
+            return leftDistanceTwo;
         }
-        return leftDistanceSensor.getDistance(DistanceUnit.INCH);
+        return leftDistance;
     }
 
     public void resetEncoder () {
