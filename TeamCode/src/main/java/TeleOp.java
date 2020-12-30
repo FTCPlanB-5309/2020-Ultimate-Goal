@@ -3,6 +3,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Teleop")
@@ -263,8 +267,17 @@ public class TeleOp extends LinearOpMode {
 //            telemetry.addData("Auto Loader State", load_state);
 //            telemetry.addData("Scoop State", scoop);
 //            telemetry.addData("Auto Loader Toggle", autoLoadToggle);
-            telemetry.addData("left position", robot.leftLauncherMotor.getCurrentPosition());
-            telemetry.addData("right position", robot.rightLauncherMotor.getCurrentPosition());
+            telemetry.addData("Heading: ",robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+            telemetry.addData("Left Shooter Encoder", robot.leftLauncherMotor.getCurrentPosition());
+            telemetry.addData("Right Shooter Encoder", robot.rightLauncherMotor.getCurrentPosition());
+            telemetry.addData("Left Distance One", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
+            telemetry.addData("Left Distance Two", robot.leftDistanceSensorTwo.getDistance(DistanceUnit.INCH));
+            telemetry.addData("Front Distance", robot.frontDistanceSensor.getDistance(DistanceUnit.INCH));
+            telemetry.addData("Rear Distance", robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
+            telemetry.addData("Red", robot.colorSensor.red());
+            telemetry.addData("Blue", robot.colorSensor.blue());
+            telemetry.addData("Green", robot.colorSensor.green());
+            telemetry.addData("Alpha", robot.colorSensor.alpha());
             telemetry.update();
             
        }
