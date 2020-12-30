@@ -188,7 +188,7 @@ public class RobotHardware
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         wobbleServo.setPosition(WOBBLE_SERVO_CLOSED);
         wobbleMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -268,7 +268,7 @@ public class RobotHardware
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
         Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
@@ -278,6 +278,8 @@ public class RobotHardware
         Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
         leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
         Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensorTwo;
+
+        colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;

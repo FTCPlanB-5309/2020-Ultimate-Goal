@@ -22,7 +22,6 @@ public class AutonomousProgram extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-//        WobbleTarget target = wobbleFinder.search();
         WobbleTarget target = wobbleFinder.search();
         telemetry.addData("position", target);
         telemetry.update();
