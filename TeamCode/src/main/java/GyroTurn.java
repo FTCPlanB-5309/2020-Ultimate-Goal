@@ -29,11 +29,41 @@ public class GyroTurn {
 
         updateHeading();
         double diff;
-        diff = target - currHeading;
+        int direction;
+        diff = 2;
+        if(target == 180)
+            target = -180;
         while (Math.abs(diff) > 1 && linearOpMode.opModeIsActive()) {
-            diff = target - currHeading;
+            //right = -heading
+            if(currHeading >= 0){
+                if(target >= 0){
+                    diff = target-currHeading;
+                }
+                else{
+                    if((currHeading-target) >= ((180-currHeading)-(-180-target))){
+                        diff = ((180-currHeading)-(-180-target));
+                    }
+                    else{
+                        diff = -(currHeading - target);
+                    }
+                }
+            }
+            else{
+                if(target >=0){
+                    if((target-currHeading) >= ((180-target)- (-180-currHeading))){
+                        diff = -((180-target)- (-180-currHeading));
+                    }
+                    else {
+                        diff = (target-currHeading);
+                    }
+                }
+                else{
+                    diff = (target-currHeading);
+                }
+            }
             telemetry.addData("diff:", diff);
             telemetry.update();
+
             if (diff > 0) {
                 if (Math.abs(diff) > 25) {
                     robot.leftFrontDrive.setPower(robot.HIGH_TURN_POWER);
