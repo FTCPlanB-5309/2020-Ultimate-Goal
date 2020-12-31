@@ -34,13 +34,12 @@ public class Wobble {
             robot.wobbleMotor.setPower(-1);
         robot.wobbleMotor.setTargetPosition(clicks);
         robot.wobbleMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while (Math.abs(robot.wobbleMotor.getCurrentPosition() - clicks) > 2) {
-            telemetry.addData("Arm Clicks", robot.wobbleMotor.getCurrentPosition());
-            telemetry.addData("Target Position", clicks);
-            telemetry.update();
-            Thread.yield();
-        }
-//        robot.wobbleMotor.setPower(0);
+//        while (Math.abs(robot.wobbleMotor.getCurrentPosition() - clicks) > 2) {
+//            telemetry.addData("Arm Clicks", robot.wobbleMotor.getCurrentPosition());
+//            telemetry.addData("Target Position", clicks);
+//            telemetry.update();
+//            Thread.yield();
+//        }
     }
 
     public void grab() throws InterruptedException {
@@ -57,11 +56,13 @@ public class Wobble {
         double distancetowall;
         switch (wobbleTarget){
             case A:
-                distancetowall = robot.getDistanceToWall(10);
+                distancetowall = robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
+                        10);
                 strafe.left(0.5, (int)distancetowall - 6);
                 break;
             case B:
-                distancetowall = robot.getDistanceToWall(25);
+                distancetowall = robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
+                        25);
                 strafe.right(0.5, (int)(distancetowall + 1.5));
                 Thread.sleep(100);
                 drive.backward(0.5, 25);
@@ -70,7 +71,8 @@ public class Wobble {
             case C:
                 drive.backward(0.5, 42);
                 Thread.sleep(100);
-                distancetowall = robot.getDistanceToWall(10);
+                distancetowall = robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
+                        10);
                 strafe.left(0.5, (int)distancetowall - 6);
                 break;
         }

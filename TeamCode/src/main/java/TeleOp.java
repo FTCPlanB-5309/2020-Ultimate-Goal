@@ -139,8 +139,8 @@ public class TeleOp extends LinearOpMode {
 
 
             if(gamepad2.a){
-                robot.leftLauncherMotor.setPower(0.95);
-                robot.rightLauncherMotor.setPower(0.95);
+                robot.leftLauncherMotor.setPower(robot.SHOOTER_WHEEL_SPEED);
+                robot.rightLauncherMotor.setPower(robot.SHOOTER_WHEEL_SPEED);
             }
 
             if(gamepad2.b){

@@ -86,10 +86,10 @@ public class RobotHardware
     public static final int CLICKS_PER_INCH = 45;
     public static final int STRAFE_CLICKS_PER_INCH = 48;
 
-
+    public final double SHOOTER_WHEEL_SPEED = 0.95;
     public final double HIGH_TURN_POWER = 0.3;
     public final double MEDIUM_TURN_POWER = 0.12;
-    public final double LOW_TURN_POWER = 0.04;
+    public final double LOW_TURN_POWER = 0.1;
 
     public final double WOBBLE_SERVO_OPEN = 0.78;
     public final double WOBBLE_SERVO_CLOSED = 1.00;
@@ -176,13 +176,9 @@ public class RobotHardware
 
 
         frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
-        Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
         rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
-        Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
         leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
-        Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
         leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
-        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensorTwo;
 
         colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
@@ -271,13 +267,9 @@ public class RobotHardware
         rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
-        Rev2mDistanceSensor frontSensorTimeOfFlight = (Rev2mDistanceSensor)frontDistanceSensor;
         rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
-        Rev2mDistanceSensor rearSensorTimeOfFlight = (Rev2mDistanceSensor)rearDistanceSensor;
         leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
-        Rev2mDistanceSensor leftSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensor;
         leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
-        Rev2mDistanceSensor rightSensorTimeOfFlight = (Rev2mDistanceSensor)leftDistanceSensorTwo;
 
         colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
@@ -310,16 +302,23 @@ public class RobotHardware
 
     }
 
-    public double getDistanceToWall(double defaultDistance) {
-        double leftDistance = leftDistanceSensor.getDistance(DistanceUnit.INCH);
-        double leftDistanceTwo = leftDistanceSensorTwo.getDistance(DistanceUnit.INCH);
-        if (leftDistance > 72) {
-            if (leftDistanceTwo > 72) {
+    public double getDistanceToWall(Rev2mDistanceSensor sensor, Rev2mDistanceSensor sensorTwo, double defaultDistance) {
+        double distance = sensor.getDistance(DistanceUnit.INCH);
+        double distanceTwo = sensorTwo.getDistance(DistanceUnit.INCH);
+        if (distance > 72) {
+            if (distanceTwo > 72) {
                 return defaultDistance;
             }
-            return leftDistanceTwo;
+            return distanceTwo;
         }
-        return leftDistance;
+        return distance;
+    }
+
+    public double getDistanceToWall(Rev2mDistanceSensor sensor, double defaultDistance) {
+        double distance = sensor.getDistance(DistanceUnit.INCH);
+        if (distance > 72)
+            return defaultDistance;
+        return distance;
     }
 
     public void resetEncoder () {

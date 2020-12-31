@@ -38,7 +38,8 @@ public class AutonomousProgram extends LinearOpMode {
         telemetry.addData("Wall Distance Two", robot.leftDistanceSensorTwo.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
-        strafe.left(0.5, ((int)robot.getDistanceToWall(15) - 20));
+        strafe.left(0.5, ((int)robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
+                15) - 20));
         gyroTurn.absolute(0);
 //        shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE); //ToDo: find a formula that works
         robot.liftServo.setPosition(robot.LAUNCHER_HIGH_ANGLE);
@@ -60,14 +61,17 @@ public class AutonomousProgram extends LinearOpMode {
 
         //driveTo (drive, turn, drive forward if needed)
         wobble.moveArm(robot.WOBBLE_ARM_DOWN);
+        Thread.sleep(1000);
         wobble.release();
         wobble.moveArm(robot.WOBBLE_ARM_UP);
+        Thread.sleep(500);
         //gyroTurn.absolute(90);
             double distancetowall;
             switch (target){
                 case A:
                     gyroTurn.absolute(0);
-                    distancetowall = robot.getDistanceToWall(16);
+                    distancetowall = robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
+                            16);
                     strafe.right(0.5, (int)distancetowall + 6);
                     drive.backward(0.5, 12);
                     break;
