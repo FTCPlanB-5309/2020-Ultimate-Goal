@@ -79,7 +79,19 @@ public class TwoWobbleAuto extends LinearOpMode{
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
             robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
-            drive.forward(0.8, 82);
+            drive.forward(0.8, 88);
+            gyroTurn.absolute(-90);
+            drive.forward(0.3, 14);
+            robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
+            robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
+            Thread.sleep(1000);
+            gyroTurn.absolute(0);
+            drive.backward(0.8, 96);
+            gyroTurn.absolute(100);
+            drive.forward(0.5,15 - (int)robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
+            robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
+            robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
+
 //            drive.forward(0.6,(int)robot.getDistanceToWall(robot.frontDistanceSensor,
 //                    16) - 16);
 //
