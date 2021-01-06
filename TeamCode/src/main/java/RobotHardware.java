@@ -94,6 +94,7 @@ public class RobotHardware
     public final double WOBBLE_SERVO_OPEN = 0.78;
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
+    public final double RING_SERVO_BARELY_LIFTED = 0.8;
     public final double DROPPING_POSITION = 0.15;//previously .10
     public final double DRIVING_POSITION = 0.3;
 
@@ -110,7 +111,7 @@ public class RobotHardware
 
     public final double LAUNCHER_FIRE_POSITION = 0;
     public final double LAUNCHER_RESET_POSITION = 1;
-    public final double LAUNCHER_HIGH_ANGLE = 0.776;
+    public final double LAUNCHER_HIGH_ANGLE = 0.761;
     public final double LAUNCHER_POWER_ANGLE = 0.746;
 
     public final double LAUNCHER_LOAD_ANGLE = 0.59;

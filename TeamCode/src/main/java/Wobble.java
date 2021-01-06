@@ -42,11 +42,6 @@ public class Wobble {
 //        }
     }
 
-    public void grab() throws InterruptedException {
-        robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
-        Thread.sleep(1000);
-    }
-
     public void release() throws  InterruptedException {
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
         Thread.sleep(1000);

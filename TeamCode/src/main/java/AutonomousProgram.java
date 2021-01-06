@@ -41,7 +41,7 @@ public class AutonomousProgram extends LinearOpMode {
         strafe.left(0.5, ((int)robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
                 15) - 20));
         gyroTurn.absolute(0);
-//        shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE); //ToDo: find a formula that works
+//        shooter.setLaunchAngle(robot.LAUNCHER_HIGH_ANGLE);
         robot.liftServo.setPosition(robot.LAUNCHER_HIGH_ANGLE);
         shooter.wheelsOn();
         shooter.triggerFire();
