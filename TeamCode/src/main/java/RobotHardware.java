@@ -86,7 +86,7 @@ public class RobotHardware
     public static final int CLICKS_PER_INCH = 45;
     public static final int STRAFE_CLICKS_PER_INCH = 48;
 
-    public final double SHOOTER_WHEEL_SPEED = 0.95;
+    public final double SHOOTER_WHEEL_SPEED = 0.85;
     public final double HIGH_TURN_POWER = 0.3;
     public final double MEDIUM_TURN_POWER = 0.12;
     public final double LOW_TURN_POWER = 0.1;
@@ -95,24 +95,23 @@ public class RobotHardware
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
     public final double RING_SERVO_BARELY_LIFTED = 0.8;
-    public final double DROPPING_POSITION = 0.15;//previously .10
+    public final double DROPPING_POSITION = 0.13;
     public final double DRIVING_POSITION = 0.3;
 
     public final long GRAB_TIMER = 300;
-    public final long RAISE_TIMER = 1250 + GRAB_TIMER;
-    public final long RELEASE_TIMER = 200 + RAISE_TIMER;//previously 300
-    public final long RESET_TIMER = 1150 + RELEASE_TIMER;//previously 1250
+    public final long RAISE_TIMER = 1500 + GRAB_TIMER;
+    public final long RELEASE_TIMER = 200 + RAISE_TIMER;
+    public final long RESET_TIMER = 1150 + RELEASE_TIMER;
 
-
-    public final double LEFT_GRABBER_CLOSED = 0.02;
-    public final double RIGHT_GRABBER_CLOSED = 1;
-    public final double LEFT_GRABBER_OPEN = 0.35;
-    public final double RIGHT_GRABBER_OPEN = 0.66;
+    public final double LEFT_GRABBER_CLOSED = 0.2;
+    public final double RIGHT_GRABBER_CLOSED = 0.7;
+    public final double LEFT_GRABBER_OPEN = 0.6;
+    public final double RIGHT_GRABBER_OPEN = 0.3;
 
     public final double LAUNCHER_FIRE_POSITION = 0;
     public final double LAUNCHER_RESET_POSITION = 1;
     public final double LAUNCHER_HIGH_ANGLE = 0.761;
-    public final double LAUNCHER_POWER_ANGLE = 0.746;
+    public final double LAUNCHER_POWER_ANGLE = 0.73;
 
     public final double LAUNCHER_LOAD_ANGLE = 0.59;
 
