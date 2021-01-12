@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
+//import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -75,7 +75,7 @@ public class RobotHardware
     public Rev2mDistanceSensor leftDistanceSensorTwo;
     public Rev2mDistanceSensor rearDistanceSensor;
     public Rev2mDistanceSensor frontDistanceSensor;
-    public ColorSensor colorSensor;
+    //public ColorSensor colorSensor;
 
     HardwareMap hwMap           =  null;
 
@@ -95,7 +95,7 @@ public class RobotHardware
     public final double WOBBLE_SERVO_CLOSED = 1.00;
     public final double SCOOPING_POSITION = 1.00;
     public final double RING_SERVO_BARELY_LIFTED = 0.8;
-    public final double DROPPING_POSITION = 0.13;
+    public final double DROPPING_POSITION = 0.17;
     public final double DRIVING_POSITION = 0.3;
 
     public final long GRAB_TIMER = 300;
@@ -103,8 +103,8 @@ public class RobotHardware
     public final long RELEASE_TIMER = 200 + RAISE_TIMER;
     public final long RESET_TIMER = 1150 + RELEASE_TIMER;
 
-    public final double LEFT_GRABBER_CLOSED = 0.2;
-    public final double RIGHT_GRABBER_CLOSED = 0.7;
+    public final double LEFT_GRABBER_CLOSED = 0.22;
+    public final double RIGHT_GRABBER_CLOSED = 0.68;
     public final double LEFT_GRABBER_OPEN = 0.6;
     public final double RIGHT_GRABBER_OPEN = 0.3;
 
@@ -180,7 +180,7 @@ public class RobotHardware
         leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
         leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
 
-        colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
+        //colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -271,7 +271,7 @@ public class RobotHardware
         leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
         leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
 
-        colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
+        //colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;

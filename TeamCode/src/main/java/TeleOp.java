@@ -272,10 +272,10 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Left Distance Two", robot.leftDistanceSensorTwo.getDistance(DistanceUnit.INCH));
             telemetry.addData("Front Distance", robot.frontDistanceSensor.getDistance(DistanceUnit.INCH));
             telemetry.addData("Rear Distance", robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
-            telemetry.addData("Red", robot.colorSensor.red());
-            telemetry.addData("Blue", robot.colorSensor.blue());
-            telemetry.addData("Green", robot.colorSensor.green());
-            telemetry.addData("Alpha", robot.colorSensor.alpha());
+//            telemetry.addData("Red", robot.colorSensor.red());
+//            telemetry.addData("Blue", robot.colorSensor.blue());
+//            telemetry.addData("Green", robot.colorSensor.green());
+//            telemetry.addData("Alpha", robot.colorSensor.alpha());
             telemetry.update();
             
        }
