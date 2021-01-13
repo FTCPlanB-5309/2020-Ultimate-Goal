@@ -42,6 +42,21 @@ public class Wobble {
 //        }
     }
 
+    public void moveArmUntilDone (int clicks) {
+        if (clicks > robot.wobbleMotor.getCurrentPosition())
+            robot.wobbleMotor.setPower(1);
+        else
+            robot.wobbleMotor.setPower(-1);
+        robot.wobbleMotor.setTargetPosition(clicks);
+        robot.wobbleMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        while (Math.abs(robot.wobbleMotor.getCurrentPosition() - clicks) > 2) {
+            telemetry.addData("Arm Clicks", robot.wobbleMotor.getCurrentPosition());
+            telemetry.addData("Target Position", clicks);
+            telemetry.update();
+            Thread.yield();
+        }
+    }
+
     public void release() throws  InterruptedException {
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
         Thread.sleep(1000);

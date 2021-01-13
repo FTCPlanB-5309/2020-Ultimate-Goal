@@ -30,8 +30,8 @@ public class Shooter {
     }
 
     public void wheelsOn() throws InterruptedException{
-        robot.leftLauncherMotor.setPower(robot.SHOOTER_WHEEL_SPEED);
-        robot.rightLauncherMotor.setPower(robot.SHOOTER_WHEEL_SPEED);
+        robot.leftLauncherMotor.setPower(robot.shooterWheelSpeed);
+        robot.rightLauncherMotor.setPower(robot.shooterWheelSpeed);
         Thread.sleep(600);
     }
 

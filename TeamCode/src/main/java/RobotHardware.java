@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -86,7 +87,6 @@ public class RobotHardware
     public static final int CLICKS_PER_INCH = 45;
     public static final int STRAFE_CLICKS_PER_INCH = 48;
 
-    public final double SHOOTER_WHEEL_SPEED = 0.85;
     public final double HIGH_TURN_POWER = 0.3;
     public final double MEDIUM_TURN_POWER = 0.12;
     public final double LOW_TURN_POWER = 0.1;
@@ -132,6 +132,7 @@ public class RobotHardware
                     "o7dkNNbJ/AkGDf51lt1VFzSmPtldip8h";
     private VuforiaLocalizer vuforia;
     public TFObjectDetector tfod;
+    public double shooterWheelSpeed = 0.85;
 
     public RobotHardware(){
 
@@ -207,9 +208,13 @@ public class RobotHardware
 
         initVuforia();
         initTfod();
-        if (tfod != null)
+        if (tfod != null) {
             tfod.activate();
             tfod.setZoom(2.5, 16.0/9.0);
+        }
+        voltage = getBatteryVoltage();
+        if (voltage > 13.05)
+            shooterWheelSpeed -= 0.05;
     }
 
     /**
@@ -300,13 +305,24 @@ public class RobotHardware
         leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        voltage = getBatteryVoltage();
+        if (voltage > 13.05)
+            shooterWheelSpeed -= 0.05;
+    }
+
+    double getBatteryVoltage() {double result = Double.POSITIVE_INFINITY;
+        for (VoltageSensor sensor : hwMap.voltageSensor) {
+            double voltage = sensor.getVoltage();
+            if (voltage > 0) {result = Math.min(result, voltage);}
+        }
+        return result;
     }
 
     public double getDistanceToWall(Rev2mDistanceSensor sensor, Rev2mDistanceSensor sensorTwo, double defaultDistance) {
         double distance = sensor.getDistance(DistanceUnit.INCH);
         double distanceTwo = sensorTwo.getDistance(DistanceUnit.INCH);
-        if (distance > 72) {
-            if (distanceTwo > 72) {
+        if (distance > 40) {
+            if (distanceTwo > 40) {
                 return defaultDistance;
             }
             return distanceTwo;
@@ -316,7 +332,7 @@ public class RobotHardware
 
     public double getDistanceToWall(Rev2mDistanceSensor sensor, double defaultDistance) {
         double distance = sensor.getDistance(DistanceUnit.INCH);
-        if (distance > 72)
+        if (distance > 40)
             return defaultDistance;
         return distance;
     }

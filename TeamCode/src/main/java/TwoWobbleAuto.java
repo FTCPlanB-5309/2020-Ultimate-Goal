@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "Wobble-Only Autonomous")
+@Autonomous(name = "Two-Wobble Autonomous")
 
 public class TwoWobbleAuto extends LinearOpMode{
     RobotHardware robot = new RobotHardware();
@@ -17,13 +17,11 @@ public class TwoWobbleAuto extends LinearOpMode{
 
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        robot.voltage = getBatteryVoltage();
         telemetry.addData("voltage", robot.voltage);
         telemetry.update();
         waitForStart();
 
         WobbleTarget target = wobbleFinder.search();
-//        WobbleTarget target = WobbleTarget.C;
         telemetry.addData("position", target);
         telemetry.update();
 
@@ -42,42 +40,48 @@ public class TwoWobbleAuto extends LinearOpMode{
         shooter.triggerReset();
         shooter.triggerFire();
         shooter.triggerReset();
-        shooter.triggerFire();
-        shooter.triggerReset();
+        if (target != WobbleTarget.A) {
+            shooter.triggerFire();
+            shooter.triggerReset();
+        }
+        else { //target == WobbleTarget.A
+            gyroTurn.absolute(24);
+            shooter.setLaunchAngle(robot.LAUNCHER_POWER_ANGLE);
+            shooter.triggerFire();
+            shooter.triggerReset();
+        }
         shooter.wheelsOff();
 
         //Retrieve second wobble, then place in A
         if (target == WobbleTarget.A) {
+            drive.backward(0.7,2);
             gyroTurn.absolute(2);
-            drive.forward(0.8, 5);
-            wobble.moveArm(robot.WOBBLE_ARM_DOWN);
-            Thread.sleep(1000);
+            wobble.moveArmUntilDone(robot.WOBBLE_ARM_DOWN);
             wobble.release();
             wobble.moveArm(robot.WOBBLE_ARM_UP);
             Thread.sleep(500);
 
             //Second wobble
             robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
-            drive.forward(0.8, 46);
-            gyroTurn.absolute(-90);
-            drive.forward(0.5,25 - (int)robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
+            drive.forward(0.8, 48);
+            gyroTurn.absolute(-85);
+            drive.forward(0.5,24 - (int)robot.getDistanceToWall(robot.rearDistanceSensor, 13));
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
-            gyroTurn.absolute(165);
-            drive.forward(0.7,55);
+            gyroTurn.absolute(170);//prev 165
+            drive.forward(0.7,46);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
             drive.backward(0.5,6);
-            strafe.left(0.5,12);
+            strafe.left(0.5,20);
             drive.forward(0.5,8);
         }
         else if (target == WobbleTarget.B) {
-            gyroTurn.absolute(40);
-            drive.backward(0.6,20);
-            wobble.moveArm(robot.WOBBLE_ARM_DOWN);
-            Thread.sleep(1000);
+            gyroTurn.absolute(36);//prev 40
+            drive.backward(0.6,22);
+            wobble.moveArmUntilDone(robot.WOBBLE_ARM_DOWN);
             wobble.release();
-            Thread.sleep(201);
+            Thread.sleep(200);
             wobble.moveArm(robot.WOBBLE_ARM_UP);
             Thread.sleep(500);
 
@@ -93,10 +97,10 @@ public class TwoWobbleAuto extends LinearOpMode{
             else
                 drive.backward(0.3, 13 - (int)distance);
             gyroTurn.absolute(-90);
-            drive.forward(0.5,27 - (int)robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
+            drive.forward(0.5,27 - (int)robot.getDistanceToWall(robot.rearDistanceSensor, 24));
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
-            gyroTurn.absolute(-175);
+            gyroTurn.absolute(-173);//prev -175
             drive.forward(0.5,74);
 
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
@@ -107,8 +111,7 @@ public class TwoWobbleAuto extends LinearOpMode{
         else { //WobbleTarget.C
             gyroTurn.absolute(2);
             drive.backward(0.8, 36);
-            wobble.moveArm(robot.WOBBLE_ARM_DOWN);
-            Thread.sleep(800);
+            wobble.moveArmUntilDone(robot.WOBBLE_ARM_DOWN);
             wobble.release();
             wobble.moveArm(robot.WOBBLE_ARM_UP);
             Thread.sleep(500);
@@ -127,7 +130,7 @@ public class TwoWobbleAuto extends LinearOpMode{
             else
                 drive.backward(0.3, 13 - (int)distance);
             gyroTurn.absolute(-85);
-            drive.forward(0.6, 23 - (int)robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
+            drive.forward(0.6, 23 - (int)(int)robot.getDistanceToWall(robot.rearDistanceSensor, 24));
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
             Thread.sleep(500);
@@ -160,11 +163,4 @@ public class TwoWobbleAuto extends LinearOpMode{
 
     }
 
-    double getBatteryVoltage() {double result = Double.POSITIVE_INFINITY;
-        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-            double voltage = sensor.getVoltage();
-            if (voltage > 0) {result = Math.min(result, voltage);}
-        }
-        return result;
-    }
 }

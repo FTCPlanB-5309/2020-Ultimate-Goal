@@ -34,6 +34,7 @@ public class TeleOp extends LinearOpMode {
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");
+        telemetry.addData("voltage", robot.voltage);
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -139,8 +140,8 @@ public class TeleOp extends LinearOpMode {
 
 
             if(gamepad2.a && !gamepad2.start){
-                robot.leftLauncherMotor.setPower(robot.SHOOTER_WHEEL_SPEED);
-                robot.rightLauncherMotor.setPower(robot.SHOOTER_WHEEL_SPEED);
+                robot.leftLauncherMotor.setPower(robot.shooterWheelSpeed);
+                robot.rightLauncherMotor.setPower(robot.shooterWheelSpeed);
             }
 
             if(gamepad2.b && !gamepad2.start){
