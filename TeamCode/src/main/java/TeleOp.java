@@ -269,8 +269,8 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Heading: ",robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
             telemetry.addData("Left Shooter Encoder", robot.leftLauncherMotor.getCurrentPosition());
             telemetry.addData("Right Shooter Encoder", robot.rightLauncherMotor.getCurrentPosition());
-            telemetry.addData("Left Distance One", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
-            telemetry.addData("Left Distance Two", robot.leftDistanceSensorTwo.getDistance(DistanceUnit.INCH));
+//            telemetry.addData("Left Distance One", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
+//            telemetry.addData("Left Distance Two", robot.leftDistanceSensorTwo.getDistance(DistanceUnit.INCH));
             telemetry.addData("Front Distance", robot.frontDistanceSensor.getDistance(DistanceUnit.INCH));
             telemetry.addData("Rear Distance", robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
 //            telemetry.addData("Red", robot.colorSensor.red());

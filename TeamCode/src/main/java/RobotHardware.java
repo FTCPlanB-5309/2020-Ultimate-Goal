@@ -132,7 +132,7 @@ public class RobotHardware
                     "o7dkNNbJ/AkGDf51lt1VFzSmPtldip8h";
     private VuforiaLocalizer vuforia;
     public TFObjectDetector tfod;
-    public double shooterWheelSpeed = 0.85;
+    public double shooterWheelSpeed = 0.97;
 
     public RobotHardware(){
 
@@ -178,8 +178,8 @@ public class RobotHardware
 
         frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
         rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
-        leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
-        leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
+//        leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
+//        leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
 
         //colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
@@ -212,9 +212,6 @@ public class RobotHardware
             tfod.activate();
             tfod.setZoom(2.5, 16.0/9.0);
         }
-        voltage = getBatteryVoltage();
-        if (voltage > 13.05)
-            shooterWheelSpeed -= 0.05;
     }
 
     /**
@@ -273,8 +270,6 @@ public class RobotHardware
 
         frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
         rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
-        leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
-        leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
 
         //colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
@@ -305,9 +300,6 @@ public class RobotHardware
         leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        voltage = getBatteryVoltage();
-        if (voltage > 13.05)
-            shooterWheelSpeed -= 0.05;
     }
 
     double getBatteryVoltage() {double result = Double.POSITIVE_INFINITY;

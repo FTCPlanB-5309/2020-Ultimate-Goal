@@ -46,7 +46,7 @@ public class TwoWobbleAuto extends LinearOpMode{
         }
         else { //target == WobbleTarget.A
             gyroTurn.absolute(24);
-            shooter.setLaunchAngle(robot.LAUNCHER_POWER_ANGLE);
+           // shooter.setLaunchAngle(robot.LAUNCHER_POWER_ANGLE);
             shooter.triggerFire();
             shooter.triggerReset();
         }
