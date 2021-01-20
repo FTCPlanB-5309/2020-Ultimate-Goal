@@ -61,30 +61,4 @@ public class Wobble {
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
         Thread.sleep(1000);
     }
-
-    public void place1stWobble(WobbleTarget wobbleTarget) throws InterruptedException {
-        double distancetowall;
-        switch (wobbleTarget){
-            case A:
-                distancetowall = robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
-                        10);
-                strafe.left(0.5, (int)distancetowall - 6);
-                break;
-            case B:
-                distancetowall = robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
-                        25);
-                strafe.right(0.5, (int)(distancetowall + 1.5));
-                Thread.sleep(100);
-                drive.backward(0.5, 25);
-                gyroTurn.absolute(0);
-                break;
-            case C:
-                drive.backward(0.5, 42);
-                Thread.sleep(100);
-                distancetowall = robot.getDistanceToWall(robot.leftDistanceSensor, robot.leftDistanceSensorTwo,
-                        10);
-                strafe.left(0.5, (int)distancetowall - 6);
-                break;
-        }
-    }
 }

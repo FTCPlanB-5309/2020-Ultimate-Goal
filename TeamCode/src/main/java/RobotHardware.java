@@ -35,7 +35,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -72,10 +71,10 @@ public class RobotHardware
 
     BNO055IMU imu;
 
-    public Rev2mDistanceSensor leftDistanceSensor;
-    public Rev2mDistanceSensor leftDistanceSensorTwo;
     public Rev2mDistanceSensor rearDistanceSensor;
+    public Rev2mDistanceSensor rearDistanceSensorTwo;
     public Rev2mDistanceSensor frontDistanceSensor;
+    public Rev2mDistanceSensor frontDistanceSensorTwo;
     //public ColorSensor colorSensor;
 
     HardwareMap hwMap           =  null;
@@ -115,7 +114,6 @@ public class RobotHardware
 
     public final double LAUNCHER_LOAD_ANGLE = 0.59;
 
-    public final int WOBBLE_ARM_START = 0;
     public final int WOBBLE_ARM_DOWN = 1200;
     public final int WOBBLE_ARM_UP = 600;
     double voltage;
@@ -177,9 +175,9 @@ public class RobotHardware
 
 
         frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
+        frontDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensorTwo");
         rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
-//        leftDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensor");
-//        leftDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "leftDistanceSensorTwo");
+        rearDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensorTwo");
 
         //colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
@@ -269,7 +267,9 @@ public class RobotHardware
         rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensor");
+        frontDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "frontDistanceSensorTwo");
         rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
+        rearDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensorTwo");
 
         //colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
@@ -302,13 +302,13 @@ public class RobotHardware
 
     }
 
-    double getBatteryVoltage() {double result = Double.POSITIVE_INFINITY;
+/*    double getBatteryVoltage() {double result = Double.POSITIVE_INFINITY;
         for (VoltageSensor sensor : hwMap.voltageSensor) {
             double voltage = sensor.getVoltage();
             if (voltage > 0) {result = Math.min(result, voltage);}
         }
         return result;
-    }
+    }*/
 
     public double getDistanceToWall(Rev2mDistanceSensor sensor, Rev2mDistanceSensor sensorTwo, double defaultDistance) {
         double distance = sensor.getDistance(DistanceUnit.INCH);

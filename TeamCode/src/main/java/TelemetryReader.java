@@ -15,10 +15,10 @@ public class TelemetryReader extends LinearOpMode {
         telemetry.addData("voltage", robot.voltage);
         telemetry.update();
         waitForStart();
-        telemetry.addData("Left Distance One", robot.leftDistanceSensor.getDistance(DistanceUnit.INCH));
-        telemetry.addData("Left Distance Two", robot.leftDistanceSensorTwo.getDistance(DistanceUnit.INCH));
         telemetry.addData("Front Distance", robot.frontDistanceSensor.getDistance(DistanceUnit.INCH));
+        telemetry.addData("Front Distance One", robot.frontDistanceSensor.getDistance(DistanceUnit.INCH));
         telemetry.addData("Rear Distance", robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
+        telemetry.addData("Rear Distance Two", robot.rearDistanceSensorTwo.getDistance(DistanceUnit.INCH));
 //        telemetry.addData("Red", robot.colorSensor.red());
 //        telemetry.addData("Blue", robot.colorSensor.blue());
 //        telemetry.addData("Green", robot.colorSensor.green());

@@ -42,13 +42,13 @@ public class TwoWobbleAuto extends LinearOpMode{
         shooter.triggerReset();
         if (target != WobbleTarget.A) {
             shooter.triggerFire();
-            shooter.triggerReset();
+            robot.launchServo.setPosition(robot.LAUNCHER_RESET_POSITION);
         }
         else { //target == WobbleTarget.A
             gyroTurn.absolute(24);
-           // shooter.setLaunchAngle(robot.LAUNCHER_POWER_ANGLE);
+            shooter.setLaunchAngle(robot.LAUNCHER_POWER_ANGLE);
             shooter.triggerFire();
-            shooter.triggerReset();
+            robot.launchServo.setPosition(robot.LAUNCHER_RESET_POSITION);
         }
         shooter.wheelsOff();
 
@@ -65,11 +65,11 @@ public class TwoWobbleAuto extends LinearOpMode{
             robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
             drive.forward(0.8, 48);
             gyroTurn.absolute(-85);
-            drive.forward(0.5,24 - (int)robot.getDistanceToWall(robot.rearDistanceSensor, 13));
+            drive.forward(0.5,24 - (int)robot.getDistanceToWall(robot.rearDistanceSensor, robot.rearDistanceSensorTwo, 13));
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
-            gyroTurn.absolute(170);//prev 165
-            drive.forward(0.7,46);
+            gyroTurn.absolute(169);//prev 170
+            drive.forward(0.7,50);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
             drive.backward(0.5,6);
@@ -97,7 +97,7 @@ public class TwoWobbleAuto extends LinearOpMode{
             else
                 drive.backward(0.3, 13 - (int)distance);
             gyroTurn.absolute(-90);
-            drive.forward(0.5,27 - (int)robot.getDistanceToWall(robot.rearDistanceSensor, 24));
+            drive.forward(0.5,27 - (int)robot.getDistanceToWall(robot.rearDistanceSensor, robot.rearDistanceSensorTwo, 24));
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
             gyroTurn.absolute(-173);//prev -175
@@ -130,35 +130,19 @@ public class TwoWobbleAuto extends LinearOpMode{
             else
                 drive.backward(0.3, 13 - (int)distance);
             gyroTurn.absolute(-85);
-            drive.forward(0.6, 23 - (int)(int)robot.getDistanceToWall(robot.rearDistanceSensor, 24));
+            drive.forward(0.6, 23 - (int)(int)robot.getDistanceToWall(robot.rearDistanceSensor, robot.rearDistanceSensorTwo, 24));
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
             Thread.sleep(500);
             robot.liftServo.setPosition(robot.RING_SERVO_BARELY_LIFTED);
-            gyroTurn.absolute(-5);
-            drive.backward(0.8, 87);
-            gyroTurn.absolute(134);
-            drive.forward(0.5,15);
+            drive.backward(0.5,15);
+            gyroTurn.absolute(-178);
+            gyroTurn.absolute(180);
+            drive.forward(0.8,95);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
             Thread.sleep(100);
-            drive.backward(0.9,36);
-
-//            drive.forward(0.5,15 - (int)robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
-//            robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
-//            robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
-
-//            drive.forward(0.6,(int)robot.getDistanceToWall(robot.frontDistanceSensor,
-//                    16) - 16);
-//
-//            gyroTurn.absolute(-90);
-//            drive.forward(0.5,24 - (int)robot.rearDistanceSensor.getDistance(DistanceUnit.INCH));
-//            robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
-//            robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
-//            gyroTurn.absolute(-5);
-//            drive.backward(0.7,94);
-//            gyroTurn.absolute(100);
-//            drive.forward(0.6,6);
+            drive.backward(0.9,28);
         }
 
     }
