@@ -97,7 +97,7 @@ public class RobotHardware
     public final double DROPPING_POSITION = 0.17;
     public final double DRIVING_POSITION = 0.3;
 
-    public final long GRAB_TIMER = 300;
+    public final long GRAB_TIMER = 400;
     public final long RAISE_TIMER = 1500 + GRAB_TIMER;
     public final long RELEASE_TIMER = 200 + RAISE_TIMER;
     public final long RESET_TIMER = 1150 + RELEASE_TIMER;
