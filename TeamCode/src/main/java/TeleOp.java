@@ -44,15 +44,18 @@ public class TeleOp extends LinearOpMode {
         robot.scoopServo.setPosition(robot.DRIVING_POSITION);
         robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
+        robot.wobbleServoTwoProng.setPosition(robot.WOBBLE_SERVO_TWO_PRONG_OPEN);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             if (gamepad2.left_bumper) {
                 robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
+                robot.wobbleServoTwoProng.setPosition(robot.WOBBLE_SERVO_TWO_PRONG_CLOSED);
             }
 
             if (gamepad2.left_trigger > 0.8) {
                 robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
+                robot.wobbleServoTwoProng.setPosition(robot.WOBBLE_SERVO_TWO_PRONG_OPEN);
             }
 
             if (Math.abs(gamepad2.left_stick_y) > robot.TELEOPDEADZONE) {

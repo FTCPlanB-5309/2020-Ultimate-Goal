@@ -59,6 +59,7 @@ public class Wobble {
 
     public void release() throws  InterruptedException {
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
-        Thread.sleep(1000);
+        robot.wobbleServoTwoProng.setPosition(robot.WOBBLE_SERVO_TWO_PRONG_OPEN);
+        Thread.sleep(500);
     }
 }

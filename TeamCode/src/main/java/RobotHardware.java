@@ -59,6 +59,7 @@ public class RobotHardware
     public DcMotor rightLauncherMotor = null;
 
     public Servo wobbleServo = null;
+    public Servo wobbleServoTwoProng = null;
 
     public Servo launchServo = null;
 
@@ -92,6 +93,10 @@ public class RobotHardware
 
     public final double WOBBLE_SERVO_OPEN = 0.78;
     public final double WOBBLE_SERVO_CLOSED = 1.00;
+
+    public final double WOBBLE_SERVO_TWO_PRONG_OPEN = 0.22;
+    public final double WOBBLE_SERVO_TWO_PRONG_CLOSED = 0;
+
     public final double SCOOPING_POSITION = 1.00;
     public final double RING_SERVO_BARELY_LIFTED = 0.8;
     public final double DROPPING_POSITION = 0.17;
@@ -141,6 +146,7 @@ public class RobotHardware
         hwMap = ahwMap;
 
         wobbleServo = hwMap.get(Servo.class, "wobbleServo");
+        wobbleServoTwoProng = hwMap.get(Servo.class,"wobbleServoTwoProng");
         wobbleMotor = hwMap.get(DcMotor.class, "wobbleMotor");
 
         launchServo = hwMap.get(Servo.class, "launchServo");
@@ -186,6 +192,7 @@ public class RobotHardware
         rightLauncherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         wobbleServo.setPosition(WOBBLE_SERVO_CLOSED);
+        wobbleServoTwoProng.setPosition(WOBBLE_SERVO_TWO_PRONG_CLOSED);
         wobbleMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -242,6 +249,7 @@ public class RobotHardware
         // Save reference to Hardware map
         hwMap = ahwMap;
         wobbleServo = hwMap.get(Servo.class, "wobbleServo");
+        wobbleServoTwoProng = hwMap.get(Servo.class,"wobbleServoTwoProng");
         wobbleMotor = hwMap.get(DcMotor.class, "wobbleMotor");
 
         scoopServo = hwMap.get(Servo.class, "scoopServo");
