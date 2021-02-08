@@ -58,12 +58,12 @@ public class RobotHardware
     public DcMotor leftLauncherMotor = null;
     public DcMotor rightLauncherMotor = null;
 
+    public DcMotor scoopMotor = null;
+
     public Servo wobbleServo = null;
     public Servo wobbleServoTwoProng = null;
 
     public Servo launchServo = null;
-
-    public Servo scoopServo = null;
 
     public Servo leftGrabberServo = null;
     public Servo rightGrabberServo = null;
@@ -151,7 +151,6 @@ public class RobotHardware
 
         launchServo = hwMap.get(Servo.class, "launchServo");
 
-        scoopServo = hwMap.get(Servo.class, "scoopServo");
         liftServo = hwMap.get(Servo.class, "liftServo");
         leftGrabberServo = hwMap.get(Servo.class, "leftGrabberServo");
         rightGrabberServo = hwMap.get(Servo.class, "rightGrabberServo");
@@ -164,7 +163,7 @@ public class RobotHardware
 
         leftLauncherMotor  = hwMap.get(DcMotor.class, "leftLauncherMotor");
         rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
-
+        scoopMotor = hwMap.get(DcMotor.class, "scoopMotor");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -196,6 +195,7 @@ public class RobotHardware
         wobbleMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        scoopMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Set all motors to zero power
 //        leftFrontDrive.setPower(0);
@@ -252,7 +252,6 @@ public class RobotHardware
         wobbleServoTwoProng = hwMap.get(Servo.class,"wobbleServoTwoProng");
         wobbleMotor = hwMap.get(DcMotor.class, "wobbleMotor");
 
-        scoopServo = hwMap.get(Servo.class, "scoopServo");
 
         launchServo = hwMap.get(Servo.class, "launchServo");
 
@@ -269,6 +268,7 @@ public class RobotHardware
 
         leftLauncherMotor  = hwMap.get(DcMotor.class, "leftLauncherMotor");
         rightLauncherMotor = hwMap.get(DcMotor.class, "rightLauncherMotor");
+        scoopMotor = hwMap.get(DcMotor.class, "scoopMotor");
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -300,6 +300,7 @@ public class RobotHardware
 
         leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        scoopMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 //         Set all motors to run without encoders.
 //         May want to use RUN_USING_ENCODERS if encoders are installed.
