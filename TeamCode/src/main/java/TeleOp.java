@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class TeleOp extends LinearOpMode {
 
     RobotHardware robot = new RobotHardware();
+    RingArm ringArm = new RingArm(robot, telemetry, this);
 
 
     @Override
@@ -41,13 +42,17 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
         robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
         robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
-        robot.scoopServo.setPosition(robot.DRIVING_POSITION);
+        robot.scoopMotor.setTargetPosition(robot.DRIVING_POSITION);
+        robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
         robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_OPEN);
         robot.wobbleServoTwoProng.setPosition(robot.WOBBLE_SERVO_TWO_PRONG_OPEN);
 
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            robot.scoopMotor.setPower(0.9);
+
             if (gamepad2.left_bumper) {
                 robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
                 robot.wobbleServoTwoProng.setPosition(robot.WOBBLE_SERVO_TWO_PRONG_CLOSED);
@@ -67,18 +72,23 @@ public class TeleOp extends LinearOpMode {
 
             if(gamepad2.right_bumper) {
                 robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
-                robot.scoopServo.setPosition(robot.DROPPING_POSITION);
+                robot.scoopMotor.setTargetPosition(robot.DROPPING_POSITION);
+                robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 scoop = true;
             }
-            else if (scoop && !autoLoadToggle)
-                robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+            else if (scoop && !autoLoadToggle) {
+                robot.scoopMotor.setTargetPosition(robot.SCOOPING_POSITION);
+                robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
 
             if (gamepad2.dpad_up) {
                 scoop = false;
-                robot.scoopServo.setPosition(robot.DRIVING_POSITION);
+                robot.scoopMotor.setTargetPosition(robot.DRIVING_POSITION);
+                robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
             if (gamepad2.dpad_down) {
-                robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+                robot.scoopMotor.setTargetPosition(robot.SCOOPING_POSITION);
+                robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
 
             if (gamepad2.dpad_left){
@@ -110,30 +120,36 @@ public class TeleOp extends LinearOpMode {
             if(autoLoadToggle) {
                 switch(load_state) {
                     case GRAB:
-                        if(system_time_base == 0)
+                        if (system_time_base == 0)
                             system_time_base = System.currentTimeMillis();
                         robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
                         robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
-                        if(System.currentTimeMillis() > system_time_base + robot.GRAB_TIMER)
+                        if (System.currentTimeMillis() > system_time_base + robot.GRAB_TIMER) {
                             load_state = autoLoadState.RAISE;
+                            system_time_base = 0;
+                        }
                         break;
                     case RAISE:
-                        robot.scoopServo.setPosition(robot.DROPPING_POSITION);
+                        robot.scoopMotor.setTargetPosition(robot.DROPPING_POSITION);
+                        robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
-                        if(System.currentTimeMillis() > system_time_base + robot.RAISE_TIMER)
+                        if(!robot.scoopMotor.isBusy())
                             load_state = autoLoadState.RELEASE;
                         break;
                     case RELEASE:
+                        if (system_time_base == 0)
+                            system_time_base = System.currentTimeMillis();
                         robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
                         robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
                         if(System.currentTimeMillis() > system_time_base + robot.RELEASE_TIMER) {
+                            system_time_base = 0;
                             load_state = autoLoadState.RESET;
                         }
                         break;
                     case RESET:
-                        robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
-                        if(System.currentTimeMillis() > system_time_base + robot.RESET_TIMER) {
-                            system_time_base = 0;
+                        robot.scoopMotor.setTargetPosition(robot.SCOOPING_POSITION);
+                        robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        if(!robot.scoopMotor.isBusy()) {
                             load_state = autoLoadState.GRAB;
                             autoLoadToggle = false;
                         }
@@ -269,6 +285,7 @@ public class TeleOp extends LinearOpMode {
 //            telemetry.addData("Auto Loader State", load_state);
 //            telemetry.addData("Scoop State", scoop);
 //            telemetry.addData("Auto Loader Toggle", autoLoadToggle);
+            telemetry.addData("scoop motor", robot.scoopMotor.getCurrentPosition());
             telemetry.addData("Heading: ",robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
             telemetry.addData("Left Shooter Encoder", robot.leftLauncherMotor.getCurrentPosition());
             telemetry.addData("Right Shooter Encoder", robot.rightLauncherMotor.getCurrentPosition());

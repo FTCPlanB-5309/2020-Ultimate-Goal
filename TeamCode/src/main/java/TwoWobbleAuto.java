@@ -14,18 +14,20 @@ public class TwoWobbleAuto extends LinearOpMode{
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
     WobbleTargetFinder wobbleFinder = new WobbleTargetFinder(robot, telemetry, this);
+    RingArm ringArm = new RingArm(robot, telemetry, this);
 
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         telemetry.addData("voltage", robot.voltage);
         telemetry.update();
         waitForStart();
-
+        robot.resetEncoder();
         WobbleTarget target = wobbleFinder.search();
         telemetry.addData("position", target);
         telemetry.update();
 
-        robot.scoopServo.setPosition(robot.DRIVING_POSITION);
+//        robot.scoopServo.setPosition(robot.DRIVING_POSITION);
+        ringArm.moveToPosition(robot.DRIVING_POSITION);
         wobble.moveArm(robot.WOBBLE_ARM_UP);
 
         drive.backward(0.8, 60);
@@ -76,7 +78,8 @@ public class TwoWobbleAuto extends LinearOpMode{
             Thread.sleep(500);
 
             //Go back for second wobble goal
-            robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+//            robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+            ringArm.moveToPosition(robot.SCOOPING_POSITION);
             drive.forward(0.8, 48);
             driveToSecondWobble();
             gyroTurn.absolute(169);//prev 170
@@ -99,10 +102,11 @@ public class TwoWobbleAuto extends LinearOpMode{
             gyroTurn.absolute(0);
 
             //Go back for second wobble goal
-            robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+//            robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+            ringArm.moveToPosition(robot.SCOOPING_POSITION);
             drive.forward(0.8, 44);
             driveToSecondWobble();
-            gyroTurn.absolute(-173);//prev -175
+            gyroTurn.absolute(-173);
             drive.forward(0.6,72);
             robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_OPEN);
             robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_OPEN);
@@ -117,13 +121,13 @@ public class TwoWobbleAuto extends LinearOpMode{
             wobble.moveArm(robot.WOBBLE_ARM_UP);
             Thread.sleep(500);
             gyroTurn.absolute(0);
-            robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+//            robot.scoopServo.setPosition(robot.SCOOPING_POSITION);
+            ringArm.moveToPosition(robot.SCOOPING_POSITION);
 
             //Go back for second wobble goal
             drive.forward(0.8, 85);
             driveToSecondWobble();
             Thread.sleep(500);
-            robot.liftServo.setPosition(robot.RING_SERVO_BARELY_LIFTED);
             drive.backward(0.5,15);
             gyroTurn.absolute(-178);
             gyroTurn.absolute(180);

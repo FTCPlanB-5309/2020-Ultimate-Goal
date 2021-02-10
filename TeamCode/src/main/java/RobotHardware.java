@@ -76,7 +76,6 @@ public class RobotHardware
     public Rev2mDistanceSensor rearDistanceSensorTwo;
     public Rev2mDistanceSensor frontDistanceSensor;
     public Rev2mDistanceSensor frontDistanceSensorTwo;
-    //public ColorSensor colorSensor;
 
     HardwareMap hwMap           =  null;
 
@@ -97,15 +96,14 @@ public class RobotHardware
     public final double WOBBLE_SERVO_TWO_PRONG_OPEN = 0.22;
     public final double WOBBLE_SERVO_TWO_PRONG_CLOSED = 0;
 
-    public final double SCOOPING_POSITION = 1.00;
-    public final double RING_SERVO_BARELY_LIFTED = 0.8;
-    public final double DROPPING_POSITION = 0.17;
-    public final double DRIVING_POSITION = 0.3;
+    public final int SCOOPING_POSITION = 0;
+    public final int RING_SERVO_BARELY_LIFTED = 150;
+    public final int DROPPING_POSITION = 1825;
+    public final int HEX_CLICKS_PER_REVOLUTION = 288;
+    public final int DRIVING_POSITION = 1575;
 
     public final long GRAB_TIMER = 400;
-    public final long RAISE_TIMER = 1500 + GRAB_TIMER;
-    public final long RELEASE_TIMER = 200 + RAISE_TIMER;
-    public final long RESET_TIMER = 1150 + RELEASE_TIMER;
+    public final long RELEASE_TIMER = 100;
 
     public final double LEFT_GRABBER_CLOSED = 0.22;
     public final double RIGHT_GRABBER_CLOSED = 0.68;
@@ -184,7 +182,6 @@ public class RobotHardware
         rearDistanceSensor = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensor");
         rearDistanceSensorTwo = hwMap.get(Rev2mDistanceSensor.class, "rearDistanceSensorTwo");
 
-        //colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -196,6 +193,7 @@ public class RobotHardware
         leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         scoopMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        scoopMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Set all motors to zero power
 //        leftFrontDrive.setPower(0);
@@ -301,6 +299,7 @@ public class RobotHardware
         leftLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightLauncherMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         scoopMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        scoopMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 //         Set all motors to run without encoders.
 //         May want to use RUN_USING_ENCODERS if encoders are installed.
