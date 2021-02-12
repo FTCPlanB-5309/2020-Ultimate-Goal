@@ -133,7 +133,7 @@ public class TeleOp extends LinearOpMode {
                         robot.scoopMotor.setTargetPosition(robot.DROPPING_POSITION);
                         robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         robot.liftServo.setPosition(robot.LAUNCHER_LOAD_ANGLE);
-                        if(!robot.scoopMotor.isBusy())
+                        if(robot.scoopMotor.getCurrentPosition() > robot.DROPPING_POSITION)
                             load_state = autoLoadState.RELEASE;
                         break;
                     case RELEASE:

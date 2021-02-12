@@ -28,6 +28,10 @@ public class TwoWobbleAuto extends LinearOpMode{
 
 //        robot.scoopServo.setPosition(robot.DRIVING_POSITION);
         ringArm.moveToPosition(robot.DRIVING_POSITION);
+
+        robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
+        robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
+
         wobble.moveArm(robot.WOBBLE_ARM_UP);
 
         drive.backward(0.8, 60);
