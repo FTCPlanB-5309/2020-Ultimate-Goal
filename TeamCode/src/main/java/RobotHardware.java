@@ -105,8 +105,8 @@ public class RobotHardware
     public final long GRAB_TIMER = 400;
     public final long RELEASE_TIMER = 100;
 
-    public final double LEFT_GRABBER_CLOSED = 0.22;
-    public final double RIGHT_GRABBER_CLOSED = 0.68;
+    public final double LEFT_GRABBER_CLOSED = 0.23;
+    public final double RIGHT_GRABBER_CLOSED = 0.69;
     public final double LEFT_GRABBER_OPEN = 0.6;
     public final double RIGHT_GRABBER_OPEN = 0.3;
 

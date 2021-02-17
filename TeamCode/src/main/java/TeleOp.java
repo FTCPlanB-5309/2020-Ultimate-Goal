@@ -30,6 +30,7 @@ public class TeleOp extends LinearOpMode {
         boolean normal_mode;
         boolean scoop = true;
         boolean fire = false;
+        boolean resetLiftMotor = false;
 
         robot.teleopInit(hardwareMap);
 
@@ -52,6 +53,18 @@ public class TeleOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             robot.scoopMotor.setPower(0.9);
+
+            if (gamepad1.back) {
+                robot.scoopMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.scoopMotor.setPower(-0.5);
+                resetLiftMotor = true;
+            }
+            else if (resetLiftMotor) {
+                robot.scoopMotor.setPower(0);
+                robot.scoopMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                resetLiftMotor = false;
+            }
 
             if (gamepad2.left_bumper) {
                 robot.wobbleServo.setPosition(robot.WOBBLE_SERVO_CLOSED);
@@ -76,7 +89,7 @@ public class TeleOp extends LinearOpMode {
                 robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 scoop = true;
             }
-            else if (scoop && !autoLoadToggle) {
+            else if (scoop && !autoLoadToggle && !resetLiftMotor) {
                 robot.scoopMotor.setTargetPosition(robot.SCOOPING_POSITION);
                 robot.scoopMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
