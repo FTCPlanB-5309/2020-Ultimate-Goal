@@ -22,6 +22,7 @@ public class BasicMechanumTeleop extends LinearOpMode {
         double lx;
         boolean slow_mode;
         boolean normal_mode;
+        boolean a;
 
         robot.teleopInit(hardwareMap);
 
@@ -78,6 +79,8 @@ public class BasicMechanumTeleop extends LinearOpMode {
                 robot.leftRearDrive.setPower(RL_power);
                 robot.rightRearDrive.setPower(RR_power);
 
+                telemetry.addData("Encoder Value", robot.armMotor.getCurrentPosition());
+                telemetry.update();
             }
             else {
                 robot.stop();
@@ -95,13 +98,25 @@ public class BasicMechanumTeleop extends LinearOpMode {
             }*/
 
             if (gamepad2.dpad_up){
-                robot.armServo.setPosition(robot.ARM_UP);
+                //if (robot.armMotor.getCurrentPosition()<robot.ARM_UP)
+                robot.armMotor.setPower(0.5);
+                //else robot.armMotor.setPower(0);
             }
             else if (gamepad2.dpad_down){
-                robot.armServo.setPosition(robot.ARM_DOWN);
+                //if (robot.armMotor.getCurrentPosition()>robot.ARM_DOWN)
+                robot.armMotor.setPower(-0.5);
+                //else robot.armMotor.setPower(0);
+            }
+            else robot.armMotor.setPower(0);
+
+            if (gamepad2.a){
+                robot.sweeperMotor.setPower(0.5);
+            }
+            else if (gamepad2.x){
+                robot.sweeperMotor.setPower(0);
             }
 
-            telemetry.update();
+
 
         }
     }
