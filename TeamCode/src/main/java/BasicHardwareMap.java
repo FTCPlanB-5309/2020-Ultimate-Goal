@@ -51,15 +51,17 @@ public class BasicHardwareMap
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.25;
 
-    public final double ARM_UP = 288;
-    public final double ARM_DOWN = 0;
+    public final int ARM_UP = 2987;
+    public final int ARM_DOWN = 0;
 
     public DcMotor  leftFrontDrive  = null;
     public DcMotor  rightFrontDrive = null;
     public DcMotor  leftRearDrive  = null;
     public DcMotor  rightRearDrive = null;
-    public DcMotor sweeperMotor = null;
     public DcMotor armMotor = null;
+
+    public Servo sweeper = null;
+
 
     HardwareMap hwMap           =  null;
 
@@ -77,7 +79,7 @@ public class BasicHardwareMap
         rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
         armMotor = hwMap.get(DcMotor.class, "armMotor");
 
-        sweeperMotor = hwMap.get(DcMotor.class, "sweeperMotor");
+        sweeper = hwMap.get(Servo.class, "sweeper");
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -87,16 +89,18 @@ public class BasicHardwareMap
         rightFrontDrive.setPower(0);
         leftRearDrive.setPower(0);
         rightRearDrive.setPower(0);
-        sweeperMotor.setPower(0);
         armMotor.setPower(0);
+
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 //         Set all motors to run without encoders.
 //         May want to use RUN_USING_ENCODERS if encoders are installed.
         leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sweeperMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
     }
 

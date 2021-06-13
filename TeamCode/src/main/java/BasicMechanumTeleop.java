@@ -40,10 +40,28 @@ public class BasicMechanumTeleop extends LinearOpMode {
         slow_mode = false;
         normal_mode = false;
 
-        //strafe and turn right slowly with dpad
+            if (gamepad2.dpad_up){
+                robot.armMotor.setTargetPosition(robot.ARM_UP);
+                robot.armMotor.setPower(0.5);
+            }
+            else if (gamepad2.dpad_down){
+                robot.armMotor.setTargetPosition(robot.ARM_DOWN);
+                robot.armMotor.setPower(-0.5);
+            }
 
-        // Normal mode
+            telemetry.addData("armMotor Encodor",robot.armMotor.getCurrentPosition());
+            telemetry.update();
 
+            if (gamepad2.a){
+                robot.sweeper.setPosition(1);
+            }
+            else if (gamepad2.x){
+                robot.sweeper.setPosition(0);
+            }
+            else robot.sweeper.setPosition(0.5);
+
+
+            // Normal mode
             ly = -gamepad1.left_stick_y; //drive forward
             lx = gamepad1.left_stick_x; //strafe
             //todo above was negative, changed to fix
@@ -96,26 +114,6 @@ public class BasicMechanumTeleop extends LinearOpMode {
                 robot.leftGrabberServo.setPosition(robot.LEFT_GRABBER_CLOSED);
                 robot.rightGrabberServo.setPosition(robot.RIGHT_GRABBER_CLOSED);
             }*/
-
-            if (gamepad2.dpad_up){
-                //if (robot.armMotor.getCurrentPosition()<robot.ARM_UP)
-                robot.armMotor.setPower(0.5);
-                //else robot.armMotor.setPower(0);
-            }
-            else if (gamepad2.dpad_down){
-                //if (robot.armMotor.getCurrentPosition()>robot.ARM_DOWN)
-                robot.armMotor.setPower(-0.5);
-                //else robot.armMotor.setPower(0);
-            }
-            else robot.armMotor.setPower(0);
-
-            if (gamepad2.a){
-                robot.sweeperMotor.setPower(0.5);
-            }
-            else if (gamepad2.x){
-                robot.sweeperMotor.setPower(0);
-            }
-
 
 
         }
